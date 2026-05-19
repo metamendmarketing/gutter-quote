@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
-import { kv } from '@vercel/kv'
+import fs from 'fs/promises'
+import path from 'path'
 
 export async function POST(req: Request) {
   try {
@@ -44,9 +45,20 @@ export async function POST(req: Request) {
       aiData: enrichedData
     }
 
-    // Save to Vercel KV
-    // We will store leads in a list called 'leads'
-    await kv.lpush('leads', JSON.stringify(newLead))
+    // Save to local JSON file
+    const filePath = path.join(process.cwd(), 'leads.json')
+    let leads = []
+    
+    try {
+      const fileContents = await fs.readFile(filePath, 'utf8')
+      leads = JSON.parse(fileContents)
+    } catch (err) {
+      // File doesn't exist or is empty, start fresh
+      leads = []
+    }
+
+    leads.push(newLead)
+    await fs.writeFile(filePath, JSON.stringify(leads, null, 2), 'utf8')
 
     return NextResponse.json({ success: true })
 

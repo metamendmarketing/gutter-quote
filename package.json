@@ -11,8 +11,6 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@types/google.maps": "^3.64.0",
-    "@upstash/redis": "^1.38.0",
-    "@vercel/kv": "^3.0.0",
     "@vis.gl/react-google-maps": "^1.8.3",
     "googleapis": "^171.4.0",
     "lucide-react": "^1.14.0",
