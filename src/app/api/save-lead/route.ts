@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
-import fs from 'fs/promises'
-import path from 'path'
+import { appendLeadToSheet } from '@/lib/google-sheets'
 
 export async function POST(req: Request) {
   try {
@@ -45,20 +44,8 @@ export async function POST(req: Request) {
       aiData: enrichedData
     }
 
-    // Save to local JSON file
-    const filePath = path.join(process.cwd(), 'leads.json')
-    let leads = []
-    
-    try {
-      const fileContents = await fs.readFile(filePath, 'utf8')
-      leads = JSON.parse(fileContents)
-    } catch (err) {
-      // File doesn't exist or is empty, start fresh
-      leads = []
-    }
-
-    leads.push(newLead)
-    await fs.writeFile(filePath, JSON.stringify(leads, null, 2), 'utf8')
+    // Save to Google Sheets
+    await appendLeadToSheet(newLead)
 
     return NextResponse.json({ success: true })
 

@@ -1,5 +1,4 @@
-import fs from 'fs/promises'
-import path from 'path'
+import { getLeadsFromSheet } from '@/lib/google-sheets'
 import { FileSpreadsheet, MapPin } from 'lucide-react'
 import LeadsActions from '@/components/LeadsActions'
 
@@ -15,15 +14,11 @@ type Lead = {
 
 export default async function LeadsDashboard() {
   let leads: Lead[] = []
-  const filePath = path.join(process.cwd(), 'leads.json')
 
   try {
-    const fileContents = await fs.readFile(filePath, 'utf8')
-    leads = JSON.parse(fileContents)
-    // Reverse so newest leads are at the top
-    leads.reverse()
+    leads = await getLeadsFromSheet()
   } catch (err) {
-    // If file doesn't exist, leads remains empty
+    console.error('Failed to fetch leads from Google Sheets:', err)
   }
 
   return (
