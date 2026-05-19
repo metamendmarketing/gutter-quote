@@ -1,4 +1,4 @@
-import { kv } from '@vercel/kv'
+import { redis as kv } from '@/lib/redis'
 import { FileSpreadsheet, MapPin } from 'lucide-react'
 import LeadsActions from '@/components/LeadsActions'
 
