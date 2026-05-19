@@ -1,5 +1,4 @@
-import fs from 'fs/promises'
-import path from 'path'
+import { kv } from '@vercel/kv'
 import { FileSpreadsheet, MapPin } from 'lucide-react'
 import LeadsActions from '@/components/LeadsActions'
 
@@ -15,15 +14,19 @@ type Lead = {
 
 export default async function LeadsDashboard() {
   let leads: Lead[] = []
-  const filePath = path.join(process.cwd(), 'leads.json')
 
   try {
-    const fileContents = await fs.readFile(filePath, 'utf8')
-    leads = JSON.parse(fileContents)
-    // Reverse so newest leads are at the top
-    leads.reverse()
+    // Get all leads from the 'leads' list
+    const rawLeads = await kv.lrange('leads', 0, -1)
+    
+    // In Vercel KV, lrange on a list of JSON strings might return parsed objects or strings
+    // We handle both cases just to be safe
+    leads = rawLeads.map(l => typeof l === 'string' ? JSON.parse(l) : l)
+    
+    // Note: lpush adds to the beginning (left) of the list, so the newest leads are already at the top (index 0)
+    // There is no need to reverse the list here if we use lpush.
   } catch (err) {
-    // If file doesn't exist, leads remains empty
+    console.error('Failed to fetch leads from KV:', err)
   }
 
   return (
