@@ -1,12 +1,10 @@
 import { NextResponse } from 'next/server'
-import fs from 'fs/promises'
-import path from 'path'
+import { kv } from '@vercel/kv'
 
 export async function POST() {
   try {
-    const filePath = path.join(process.cwd(), 'leads.json')
-    // Simply overwrite the file with an empty array
-    await fs.writeFile(filePath, JSON.stringify([], null, 2), 'utf8')
+    // Delete the 'leads' key from KV
+    await kv.del('leads')
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Error clearing leads:', error)
