@@ -210,7 +210,16 @@ function HomeContent() {
     fetch('/api/save-lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ address, email })
+      body: JSON.stringify({ 
+        address, 
+        email,
+        quote,
+        perimeter: Math.round(perimeter),
+        stories,
+        treeCoverage,
+        steepRoof,
+        selectedServices
+      })
     }).catch(err => console.error('Failed to save lead:', err))
   }
 
