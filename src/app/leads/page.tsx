@@ -9,7 +9,7 @@ type Lead = {
   date: string
   time: string
   address: string
-  aiData: string
+  email: string
 }
 
 export default async function LeadsDashboard() {
@@ -61,7 +61,7 @@ export default async function LeadsDashboard() {
                   <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 text-sm uppercase tracking-wider font-bold">
                     <th className="py-4 px-6">Date & Time</th>
                     <th className="py-4 px-6">Property Address</th>
-                    <th className="py-4 px-6">AI Enrichment Data</th>
+                    <th className="py-4 px-6">Email Address</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -78,8 +78,8 @@ export default async function LeadsDashboard() {
                         </div>
                       </td>
                       <td className="py-4 px-6">
-                        <div className="bg-brand-primary/5 text-brand-secondary px-4 py-3 rounded-xl text-sm border border-brand-primary/20 font-medium leading-relaxed max-w-xl">
-                          {lead.aiData.replace(/(City|State|ZIP):\s*[^,]+(,\s*)?/gi, '').replace(/,\s*$/, '')}
+                        <div className="bg-brand-primary/5 text-brand-secondary px-4 py-3 rounded-xl text-sm border border-brand-primary/20 font-medium max-w-xl">
+                          {lead.email}
                         </div>
                       </td>
                     </tr>

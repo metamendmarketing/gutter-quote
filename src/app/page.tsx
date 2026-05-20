@@ -131,6 +131,8 @@ function HomeContent() {
   const [treeCoverage, setTreeCoverage] = useState<string>('No')
   const [lastCleaned, setLastCleaned] = useState<string>('< 1 year')
   const [steepRoof, setSteepRoof] = useState<boolean>(false)
+  const [email, setEmail] = useState<string>('')
+  const [isEmailSent, setIsEmailSent] = useState<boolean>(false)
   const [isServicesModalOpen, setIsServicesModalOpen] = useState(false)
   const [selectedServices, setSelectedServices] = useState<string[]>([])
   const [mapCompletedLines, setMapCompletedLines] = useState<google.maps.LatLngLiteral[][]>([])
@@ -154,15 +156,10 @@ function HomeContent() {
       
       if (data.status === 'OK' && data.results.length > 0) {
         setMapCenter(data.results[0].geometry.location)
-        
-        // Save lead in the background
+        // Set the formatted address for lead capture later
         const formattedAddress = data.results[0].formatted_address || address
-        fetch('/api/save-lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ address: formattedAddress })
-        }).catch(err => console.error('Failed to save lead:', err))
-        
+        setAddress(formattedAddress)
+
       } else {
         throw new Error("Could not find that address.")
       }
@@ -205,6 +202,17 @@ function HomeContent() {
   }
 
   const quote = finalQuote > 0 ? finalQuote.toFixed(2) : '--'
+
+  const handleEmailSubmit = async () => {
+    if (!email || !address) return
+    setIsEmailSent(true)
+    
+    fetch('/api/save-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ address, email })
+    }).catch(err => console.error('Failed to save lead:', err))
+  }
 
   return (
     <div className="h-screen bg-slate-50 text-slate-900 selection:bg-brand-primary/30 flex flex-col overflow-hidden">
@@ -388,15 +396,18 @@ function HomeContent() {
                   <div className="space-y-2 mt-2">
                     <input 
                       type="email" 
-                      disabled={perimeter === 0}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={perimeter === 0 || isEmailSent}
                       placeholder="Enter your email address..."
                       className="w-full border-2 border-slate-200 rounded-lg p-3 text-sm font-medium focus:outline-none focus:border-brand-primary disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                     <button 
-                      disabled={perimeter === 0}
-                      className="w-full bg-brand-primary hover:bg-brand-primary-hover text-white px-5 py-3 rounded-lg font-heading font-medium tracking-wide uppercase text-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-brand-primary/20"
+                      onClick={handleEmailSubmit}
+                      disabled={perimeter === 0 || !email || isEmailSent}
+                      className={`w-full ${isEmailSent ? 'bg-green-500' : 'bg-brand-primary hover:bg-brand-primary-hover'} text-white px-5 py-3 rounded-lg font-heading font-medium tracking-wide uppercase text-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md`}
                     >
-                      Email me my quote
+                      {isEmailSent ? 'Quote Sent!' : 'Email me my quote'}
                     </button>
                   </div>
                 </div>
