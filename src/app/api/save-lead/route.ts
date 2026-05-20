@@ -8,6 +8,7 @@ const resend = resendApiKey ? new Resend(resendApiKey) : null
 export async function POST(req: Request) {
   try {
     const { 
+      id,
       address, 
       email,
       quote,
@@ -18,26 +19,35 @@ export async function POST(req: Request) {
       selectedServices
     } = await req.json()
 
-    if (!address || !email) {
-      return NextResponse.json({ error: 'Address and email are required' }, { status: 400 })
+    if (!address) {
+      return NextResponse.json({ error: 'Address is required' }, { status: 400 })
     }
+
+    const leadId = id || crypto.randomUUID()
+    
+    // Check if lead already exists
+    const existingLeadStr = await kv.hget('leads', leadId)
+    const existingLead = typeof existingLeadStr === 'string' 
+      ? JSON.parse(existingLeadStr) 
+      : existingLeadStr || {}
 
     const now = new Date()
     const dateStr = now.toLocaleDateString()
     const timeStr = now.toLocaleTimeString()
 
+    // Merge with existing lead data (if any), but don't overwrite original date/time if it exists
     const newLead = {
-      date: dateStr,
-      time: timeStr,
-      address,
-      email
+      date: existingLead.date || dateStr,
+      time: existingLead.time || timeStr,
+      address: address || existingLead.address,
+      email: email || existingLead.email || ''
     }
 
-    // Save to Vercel KV
-    await kv.lpush('leads', JSON.stringify(newLead))
+    // Save to Vercel KV Hash
+    await kv.hset('leads', { [leadId]: JSON.stringify(newLead) })
 
     // Send Email via Resend
-    if (resend) {
+    if (resend && email) {
       try {
         await resend.emails.send({
           from: 'quotes@metamendmarketing.com', // Change this to a verified domain later if needed

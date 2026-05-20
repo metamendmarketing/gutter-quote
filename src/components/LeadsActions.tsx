@@ -25,7 +25,7 @@ export default function LeadsActions({ leads }: { leads: Lead[] }) {
         `"${lead.date}"`,
         `"${lead.time}"`,
         `"${lead.address.replace(/"/g, '""')}"`,
-        `"${lead.email.replace(/"/g, '""')}"`
+        `"${(lead.email || '').replace(/"/g, '""')}"`
       ].join(','))
     ].join('\n')
 

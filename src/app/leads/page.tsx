@@ -16,12 +16,18 @@ export default async function LeadsDashboard() {
   let leads: Lead[] = []
 
   try {
-    // Get all leads from the 'leads' list
-    const rawLeads = await kv.lrange('leads', 0, -1)
+    // Get all leads from the 'leads' hash
+    const rawLeads = await kv.hvals('leads')
     
-    // In Vercel KV, lrange on a list of JSON strings might return parsed objects or strings
-    // We handle both cases just to be safe
-    leads = rawLeads.map(l => typeof l === 'string' ? JSON.parse(l) : l)
+    // In Vercel KV, hvals returns an array of values
+    leads = rawLeads.map((l: any) => typeof l === 'string' ? JSON.parse(l) : l)
+    
+    // Sort leads by date and time descending
+    leads.sort((a, b) => {
+      const dateA = new Date(`${a.date} ${a.time}`).getTime()
+      const dateB = new Date(`${b.date} ${b.time}`).getTime()
+      return dateB - dateA
+    })
     
   } catch (err) {
     console.error('Failed to fetch leads from KV:', err)
@@ -78,9 +84,16 @@ export default async function LeadsDashboard() {
                         </div>
                       </td>
                       <td className="py-4 px-6">
-                        <div className="bg-brand-primary/5 text-brand-secondary px-4 py-3 rounded-xl text-sm border border-brand-primary/20 font-medium max-w-xl">
-                          {lead.email}
-                        </div>
+                        {lead.email ? (
+                          <div className="bg-brand-primary/5 text-brand-secondary px-4 py-3 rounded-xl text-sm border border-brand-primary/20 font-medium max-w-xl">
+                            {lead.email}
+                          </div>
+                        ) : (
+                          <div className="bg-amber-50 text-amber-600 px-4 py-3 rounded-xl text-sm border border-amber-200/50 font-medium max-w-xl inline-flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                            Pending...
+                          </div>
+                        )}
                       </td>
                     </tr>
                   ))}

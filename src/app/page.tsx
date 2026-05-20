@@ -140,6 +140,7 @@ function HomeContent() {
   const [mapHasCentered, setMapHasCentered] = useState(false)
   const [isGeocoding, setIsGeocoding] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [leadId, setLeadId] = useState<string | null>(null)
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -159,6 +160,15 @@ function HomeContent() {
         // Set the formatted address for lead capture later
         const formattedAddress = data.results[0].formatted_address || address
         setAddress(formattedAddress)
+
+        // Generate lead ID and save initial partial lead
+        const newLeadId = crypto.randomUUID()
+        setLeadId(newLeadId)
+        fetch('/api/save-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: newLeadId, address: formattedAddress })
+        }).catch(err => console.error('Failed to save partial lead:', err))
 
       } else {
         throw new Error("Could not find that address.")
@@ -211,6 +221,7 @@ function HomeContent() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
+        id: leadId,
         address, 
         email,
         quote,
