@@ -437,21 +437,7 @@ function HomeContent() {
             {/* Map / Blueprint Area */}
             <div className="flex-1 relative bg-slate-200 flex flex-col">
               
-              {/* Mode Toggle Bar */}
-              <div className="absolute top-4 left-4 z-10 flex bg-white rounded-lg shadow-md p-1 font-bold text-xs uppercase tracking-widest border border-slate-200">
-                <button 
-                  onClick={() => setAppMode('map')} 
-                  className={`px-4 py-2 rounded-md transition-colors ${appMode === 'map' ? 'bg-brand-secondary text-white' : 'text-slate-600 hover:bg-slate-100'}`}
-                >
-                  Satellite Map
-                </button>
-                <button 
-                  onClick={() => setAppMode('blueprint')} 
-                  className={`px-4 py-2 rounded-md transition-colors ${appMode === 'blueprint' ? 'bg-brand-secondary text-white' : 'text-slate-600 hover:bg-slate-100'}`}
-                >
-                  Blueprint / PDF
-                </button>
-              </div>
+
 
               <div className={`w-full h-full ${appMode === 'map' ? 'block' : 'hidden'}`}>
                 <MapComponent 
