@@ -8,7 +8,7 @@ type Lead = {
   date: string
   time: string
   address: string
-  aiData: string
+  email: string
 }
 
 export default function LeadsActions({ leads }: { leads: Lead[] }) {
@@ -18,14 +18,14 @@ export default function LeadsActions({ leads }: { leads: Lead[] }) {
   const handleExportCSV = () => {
     if (leads.length === 0) return
 
-    const headers = ['Date', 'Time', 'Address', 'AI Data']
+    const headers = ['Date', 'Time', 'Address', 'Email']
     const csvContent = [
       headers.join(','),
       ...leads.map(lead => [
         `"${lead.date}"`,
         `"${lead.time}"`,
         `"${lead.address.replace(/"/g, '""')}"`,
-        `"${lead.aiData.replace(/"/g, '""')}"`
+        `"${lead.email.replace(/"/g, '""')}"`
       ].join(','))
     ].join('\n')
 
