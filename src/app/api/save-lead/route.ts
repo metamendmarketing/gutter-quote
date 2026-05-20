@@ -49,8 +49,9 @@ export async function POST(req: Request) {
     // Send Email via Resend
     if (resend && email) {
       try {
-        await resend.emails.send({
-          from: 'quotes@metamendmarketing.com', // Change this to a verified domain later if needed
+        const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev'
+        const emailResponse = await resend.emails.send({
+          from: fromEmail,
           to: email,
           subject: 'Your Gutter Cleaning Quote - Metamend',
           html: `
