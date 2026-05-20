@@ -59,7 +59,7 @@ export default function LeadsActions({ leads }: { leads: Lead[] }) {
       <button
         onClick={handleExportCSV}
         disabled={leads.length === 0}
-        className="bg-slate-800 hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors"
+        className="bg-brand-primary hover:bg-brand-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors"
       >
         <Download className="w-4 h-4" />
         Export CSV
