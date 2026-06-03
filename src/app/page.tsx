@@ -96,8 +96,7 @@ const AddressAutocomplete = ({
       type="text" 
       value={address}
       onChange={(e) => setAddress(e.target.value)}
-      placeholder="Enter your home address..." 
-      className="w-full bg-white/10 py-3 pl-11 pr-4 text-base font-medium text-white placeholder-white/50 focus:outline-none rounded-lg"
+      className="w-full bg-white border border-slate-300 py-3 pl-11 pr-4 text-base font-medium text-brand-secondary placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary rounded-sm"
       disabled={isGeocoding}
     />
   )
@@ -233,68 +232,65 @@ function HomeContent() {
       
         {(!mapCenter && appMode === 'map') ? (
           // --- LANDING PAGE ---
-          <main className="flex-1 w-full max-w-6xl mx-auto px-6 py-8 md:py-16 relative z-10 flex flex-col items-center">
+          <main className="flex-1 w-full max-w-5xl mx-auto px-4 md:px-6 py-8 md:py-16 relative z-10 flex flex-col md:flex-row items-center md:items-stretch">
             
-            <h1 className="text-4xl md:text-5xl font-heading font-bold tracking-tight text-brand-secondary mb-6 text-center">
-              TRUST NOLAND'S — <span className="text-brand-primary">YOUR ROOFING EXPERTS</span>
-            </h1>
-
-            <div className="w-full flex flex-col lg:flex-row gap-6 items-stretch mt-4">
+            {/* Left Red Block */}
+            <div className="w-full md:w-[45%] bg-brand-primary p-8 md:p-12 text-white relative overflow-hidden flex flex-col justify-center min-h-[400px]">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 relative z-10">Get Your Free Estimate</h2>
+              <p className="text-lg text-white/90 leading-relaxed relative z-10 font-medium">
+                Let's get started. Let us know what Noland's Roofing can do for you.
+              </p>
               
-              {/* Dark Navy Info Block */}
-              <div className="flex-1 bg-brand-secondary text-white p-6 md:p-10 rounded-2xl shadow-xl flex flex-col justify-center">
-                <h2 className="font-heading text-3xl md:text-4xl text-white mb-4 uppercase tracking-wide">
-                  Instant Roofing Quotes. No Waiting.
-                </h2>
-                <p className="text-slate-300 text-base md:text-lg mb-8 leading-relaxed font-body">
-                  Noland's Roofing delivers expert craftsmanship and unbeatable service across Florida. Get an exact, locked-in price for your roofing project in seconds.
-                  <br/><br/>
-                  Enter your address to use our proprietary satellite measurement tool and see your instant quote.
-                </p>
-                <div className="w-full max-w-xl p-2 bg-white/10 rounded-xl border border-white/20 backdrop-blur-sm">
-                  <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2">
-                    <div className="flex-1 relative flex items-center">
-                      <MapPin className="w-5 h-5 text-white/50 absolute left-4 pointer-events-none z-10" />
-                      <AddressAutocomplete 
-                        address={address} 
-                        setAddress={setAddress} 
-                        isGeocoding={isGeocoding} 
-                      />
-                    </div>
-                    <button 
-                      type="submit"
-                      disabled={isGeocoding || address.length < 5}
-                      className="bg-brand-primary hover:bg-brand-primary-hover text-white px-6 py-3 rounded-lg font-heading font-medium text-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2 uppercase tracking-widest shadow-md"
-                    >
-                      {isGeocoding ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"/> : <ArrowRight className="w-5 h-5" />}
-                      Get Quote
-                    </button>
-                  </form>
+              {/* Faint Roof Silhouette */}
+              <div className="absolute -bottom-8 left-0 right-0 h-56 opacity-10 pointer-events-none">
+                <svg viewBox="0 0 100 50" preserveAspectRatio="none" className="w-full h-full fill-white">
+                  <path d="M 0 50 L 0 30 L 50 10 L 100 30 L 100 50 Z" />
+                  <path d="M 25 35 L 25 25 L 35 20 L 45 25 L 45 35 Z" fill="none" stroke="white" strokeWidth="2" />
+                  <rect x="29" y="27" width="12" height="8" fill="none" stroke="white" strokeWidth="1" />
+                  <path d="M 65 40 L 65 30 L 75 25 L 85 30 L 85 40 Z" fill="none" stroke="white" strokeWidth="2" />
+                  <rect x="69" y="32" width="12" height="8" fill="none" stroke="white" strokeWidth="1" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Right White Block (Overlapping Form) */}
+            <div className="w-full md:w-[55%] bg-white p-8 md:p-10 shadow-2xl md:-ml-8 md:my-6 z-20 rounded-sm flex flex-col justify-center border border-slate-100">
+              <form onSubmit={handleSearch} className="flex flex-col gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-bold text-slate-700">Property Address <span className="text-brand-primary">*</span></label>
+                  <div className="relative flex items-center">
+                    <MapPin className="w-5 h-5 text-slate-400 absolute left-4 pointer-events-none z-10" />
+                    <AddressAutocomplete 
+                      address={address} 
+                      setAddress={setAddress} 
+                      isGeocoding={isGeocoding} 
+                    />
+                  </div>
                 </div>
-                <div className="mt-6 flex items-center gap-4">
-                  <div className="h-px bg-white/20 flex-1"></div>
-                  <span className="text-white/60 font-bold uppercase tracking-widest text-xs">OR</span>
-                  <div className="h-px bg-white/20 flex-1"></div>
-                </div>
+                
                 <button 
-                  onClick={() => setAppMode('blueprint')}
-                  className="mt-6 w-full max-w-xl bg-transparent border-2 border-white/20 hover:border-white/40 hover:bg-white/5 text-white py-4 rounded-xl font-heading font-medium text-xl transition-all flex items-center justify-center gap-2 uppercase tracking-widest"
+                  type="submit"
+                  disabled={isGeocoding || address.length < 5}
+                  className="bg-[#9c1830] hover:bg-brand-primary text-white px-8 py-2.5 rounded-sm font-medium transition-colors disabled:opacity-50 self-end mt-2"
                 >
-                  Upload a PDF / Blueprint
+                  {isGeocoding ? 'Loading...' : 'Submit'}
                 </button>
-                {error && <p className="text-red-400 mt-4 font-bold">{error}</p>}
-              </div>
-              
-              {/* Right Side Image/Graphic Placeholder */}
-              <div className="flex-1 rounded-2xl bg-slate-200 overflow-hidden shadow-xl relative min-h-[300px] lg:min-h-full">
-                <img 
-                  src="/neds/demo/clean_gutters.png" 
-                  alt="Gutter Cleaning" 
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-brand-primary/10 mix-blend-multiply"></div>
+              </form>
+
+              <div className="mt-8 mb-6 flex items-center gap-4">
+                <div className="h-px bg-slate-200 flex-1"></div>
+                <span className="text-slate-400 font-bold uppercase tracking-widest text-xs">OR</span>
+                <div className="h-px bg-slate-200 flex-1"></div>
               </div>
 
+              <button 
+                onClick={() => setAppMode('blueprint')}
+                className="w-full bg-slate-50 border border-slate-200 hover:border-slate-300 hover:bg-slate-100 text-slate-600 py-3 rounded-sm font-medium transition-colors flex items-center justify-center gap-2"
+              >
+                Upload a PDF / Blueprint
+              </button>
+              
+              {error && <p className="text-red-500 mt-4 font-bold text-sm text-center">{error}</p>}
             </div>
           </main>
         ) : (
