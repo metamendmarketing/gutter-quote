@@ -391,7 +391,12 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
           setShowCalibrationPrompt(true)
         }
       } else if (!isCalibrating && pixelsPerFoot) {
-        setCurrentLine([...currentLine, worldPos])
+        if (currentLine.length === 1) {
+          setCompletedLines([...completedLines, [...currentLine, worldPos]])
+          setCurrentLine([])
+        } else {
+          setCurrentLine([worldPos])
+        }
       }
     }
   }
@@ -436,13 +441,6 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
   const handleClear = () => {
     setCompletedLines([])
     setCurrentLine([])
-  }
-
-  const handleFinishSegment = () => {
-    if (currentLine.length > 1) {
-      setCompletedLines(prev => [...prev, currentLine])
-      setCurrentLine([])
-    }
   }
 
   const handleUndo = () => {
@@ -507,16 +505,6 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
                 >
                   <RotateCcw className="w-4 h-4" />
                   Undo
-                </button>
-              )}
-
-              {currentLine.length > 1 && (
-                <button 
-                  onClick={handleFinishSegment}
-                  className="bg-brand-primary hover:bg-brand-primary-hover text-white px-4 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 border border-brand-primary-hover transition-all hover:scale-105 text-sm"
-                >
-                  <Check className="w-4 h-4" />
-                  Finish Segment
                 </button>
               )}
               

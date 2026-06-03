@@ -41,7 +41,14 @@ const MapComponent = memo(function MapComponent({
       if (e.latLng) {
         const lat = e.latLng.lat();
         const lng = e.latLng.lng();
-        setCurrentLine(prev => [...prev, {lat, lng}]);
+        if (currentLineRef.current.length === 1) {
+          const newPt = {lat, lng};
+          const finishedLine = [...currentLineRef.current, newPt];
+          setCompletedLines(prev => [...prev, finishedLine]);
+          setCurrentLine([]);
+        } else {
+          setCurrentLine([{lat, lng}]);
+        }
       }
     });
 
@@ -152,12 +159,7 @@ const MapComponent = memo(function MapComponent({
     setCurrentLine([]);
   }
 
-  const handleFinishSegment = () => {
-    if (currentLine.length > 1) {
-      setCompletedLines(prev => [...prev, currentLine]);
-      setCurrentLine([]);
-    }
-  }
+
 
   const handleUndo = () => {
     setCurrentLine(prev => prev.slice(0, -1));
@@ -199,16 +201,7 @@ const MapComponent = memo(function MapComponent({
               </button>
             )}
 
-            {currentLine.length > 0 && (
-              <button 
-                onClick={handleFinishSegment}
-                disabled={currentLine.length < 2}
-                className={`px-4 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 border transition-all text-sm ${currentLine.length > 1 ? 'bg-brand-primary hover:bg-brand-primary-hover text-white border-brand-primary-hover hover:scale-105' : 'bg-slate-200 text-slate-400 border-slate-300 cursor-not-allowed'}`}
-              >
-                <Check className="w-4 h-4" />
-                Finish Segment
-              </button>
-            )}
+
             
             {currentLine.length === 0 && completedLines.length > 0 && (
               <div className="bg-brand-secondary/90 backdrop-blur-md text-white px-4 py-3 rounded-full shadow-2xl flex items-center gap-2 border border-brand-secondary-hover text-sm font-medium">
