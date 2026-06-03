@@ -5,7 +5,7 @@ import { APIProvider, useMapsLibrary } from '@vis.gl/react-google-maps'
 import MapComponent from '@/components/MapComponent'
 import dynamic from 'next/dynamic'
 const BlueprintComponent = dynamic(() => import('@/components/BlueprintComponent'), { ssr: false })
-import { MapPin, Calculator, ArrowRight, Phone, User, X } from 'lucide-react'
+import { MapPin, Calculator, ArrowRight, Phone, User, X, ChevronDown } from 'lucide-react'
 
 const LIBRARIES: any = ['places'];
 
@@ -20,13 +20,13 @@ const BrandHeader = () => (
 
       {/* Nav Links */}
       <div className="hidden xl:flex items-center justify-center flex-1 gap-8 text-[14px] font-bold tracking-wide text-[#b80028] uppercase px-8">
-        <span className="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity">ROOFING SERVICES <span className="text-[10px] opacity-70">▼</span></span>
-        <span className="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity">HOME RENOVATIONS <span className="text-[10px] opacity-70">▼</span></span>
-        <span className="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity">WHY NOLAND'S <span className="text-[10px] opacity-70">▼</span></span>
+        <span className="flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity">ROOFING SERVICES <ChevronDown className="w-4 h-4 opacity-70 stroke-[3]" /></span>
+        <span className="flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity">HOME RENOVATIONS <ChevronDown className="w-4 h-4 opacity-70 stroke-[3]" /></span>
+        <span className="flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity">WHY NOLAND'S <ChevronDown className="w-4 h-4 opacity-70 stroke-[3]" /></span>
         <span className="cursor-pointer hover:opacity-80 transition-opacity">FINANCING</span>
-        <span className="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity">SAMPLE WORK <span className="text-[10px] opacity-70">▼</span></span>
+        <span className="flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity">SAMPLE WORK <ChevronDown className="w-4 h-4 opacity-70 stroke-[3]" /></span>
         <span className="cursor-pointer hover:opacity-80 transition-opacity">BLOG</span>
-        <span className="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity">CONTACT <span className="text-[10px] opacity-70">▼</span></span>
+        <span className="flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity">CONTACT <ChevronDown className="w-4 h-4 opacity-70 stroke-[3]" /></span>
       </div>
 
       {/* Social Icons */}
