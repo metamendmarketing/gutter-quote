@@ -86,7 +86,7 @@ const MapComponent = memo(function MapComponent({
       new google.maps.Polyline({
         map,
         path: linePath,
-        strokeColor: '#F95B16', // Brand Orange
+        strokeColor: '#E36C09', // Noland's Orange
         strokeOpacity: 0.8,
         strokeWeight: 4,
         zIndex: 1,
@@ -107,7 +107,7 @@ const MapComponent = memo(function MapComponent({
       currentPolylineRef.current = new google.maps.Polyline({
         map,
         path: currentLine,
-        strokeColor: '#E05113', // Brand Darker Orange
+        strokeColor: '#C85E08', // Noland's Darker Orange
         strokeOpacity: 1.0,
         strokeWeight: 5,
         zIndex: 2,

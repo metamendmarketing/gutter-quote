@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { Teko, Roboto } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
-const teko = Teko({
+const poppins = Poppins({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const roboto = Roboto({
+const poppinsBody = Poppins({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700", "900"],
+  weight: ["300", "400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "Gutter Cleaning Quote | Ned Stevens",
-  description: "Get an instant gutter cleaning quote with our satellite measurement tool.",
+  title: "Roofing Quote | Noland's Roofing",
+  description: "Get an instant roofing quote with our satellite measurement tool.",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${teko.variable} ${roboto.variable} h-full antialiased`}
+      className={`${poppins.variable} ${poppinsBody.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-body">{children}</body>
     </html>

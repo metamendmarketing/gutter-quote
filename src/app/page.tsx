@@ -243,8 +243,8 @@ function HomeContent() {
           // --- LANDING PAGE ---
           <main className="flex-1 w-full max-w-6xl mx-auto px-6 py-8 md:py-16 relative z-10 flex flex-col items-center">
             
-            <h1 className="text-4xl md:text-5xl font-heading font-medium tracking-wide uppercase text-brand-secondary mb-6 text-center">
-              TRUST NED STEVENS — <span className="text-brand-primary">THE GUTTER EXPERTS</span>
+            <h1 className="text-4xl md:text-5xl font-heading font-bold tracking-tight text-brand-secondary mb-6 text-center">
+              TRUST NOLAND'S — <span className="text-brand-primary">YOUR ROOFING EXPERTS</span>
             </h1>
 
             <div className="w-full flex flex-col lg:flex-row gap-6 items-stretch mt-4">
@@ -255,9 +255,9 @@ function HomeContent() {
                   Instant Gutter Quotes. No Waiting.
                 </h2>
                 <p className="text-slate-300 text-base md:text-lg mb-8 leading-relaxed font-body">
-                  Your home works hard to defend you from the elements. Return the favor and call the team of professionals at Ned Stevens for seasonal gutter cleaning services. 
+                  Noland's Roofing delivers expert craftsmanship and unbeatable service across Florida. Get an exact, locked-in price for your roofing project in seconds.
                   <br/><br/>
-                  Enter your address to use our proprietary satellite measurement tool and get an exact, locked-in price for gutter cleaning in seconds.
+                  Enter your address to use our proprietary satellite measurement tool and see your instant quote.
                 </p>
                 <div className="w-full max-w-xl p-2 bg-white/10 rounded-xl border border-white/20 backdrop-blur-sm">
                   <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2">

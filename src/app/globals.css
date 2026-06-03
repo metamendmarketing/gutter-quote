@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc; /* light slate */
-  --foreground: #14173D; /* Brand Navy */
+  --background: #FFFFFF; /* Pure white */
+  --foreground: #222222; /* Dark charcoal */
 }
 
 @theme inline {
@@ -11,10 +11,10 @@
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
   
-  --color-brand-primary: #F95B16; /* Brand Orange */
-  --color-brand-primary-hover: #E05113; /* Darker Brand Orange */
-  --color-brand-secondary: #14173D; /* Brand Navy */
-  --color-brand-secondary-hover: #0D0F28; /* Darker Brand Navy */
+  --color-brand-primary: #E36C09; /* Noland's Orange */
+  --color-brand-primary-hover: #C85E08; /* Darker Noland's Orange */
+  --color-brand-secondary: #1A1A1A; /* Charcoal */
+  --color-brand-secondary-hover: #111111; /* Darker Charcoal */
 }
 
 body {
