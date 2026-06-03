@@ -226,7 +226,7 @@ function HomeContent() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-brand-primary/30 flex flex-col">
+    <div className={`bg-slate-50 text-slate-900 selection:bg-brand-primary/30 flex flex-col ${(!mapCenter && appMode === 'map') ? 'min-h-screen' : 'h-screen overflow-hidden'}`}>
       <BrandHeader />
       
       
@@ -295,7 +295,7 @@ function HomeContent() {
           </main>
         ) : (
           // --- MAP & TRACING VIEW ---
-          <div className="flex-1 w-full flex flex-col md:flex-row" style={{ height: 'calc(100vh - 120px)' }}>
+          <div className="flex-1 w-full flex flex-col md:flex-row min-h-0">
             
             {/* Sidebar Quote Panel */}
             <div className="w-full md:w-80 lg:w-96 bg-white border-r border-slate-200 shadow-xl z-10 flex flex-col">
