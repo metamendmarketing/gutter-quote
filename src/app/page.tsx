@@ -15,7 +15,7 @@ const BrandHeader = () => (
     <div className="py-4 px-6 lg:px-12 flex justify-between items-center max-w-[1600px] mx-auto w-full">
       {/* Logo */}
       <div className="flex items-center shrink-0">
-        <img src="/neds/demo/logo_nolands.png" alt="Noland's Roofing Logo" className="h-16 md:h-20 object-contain" />
+        <img src="/neds/demo/logo_nolands.png" alt="Noland's Roofing Logo" className="h-20 md:h-28 lg:h-32 object-contain" />
       </div>
 
       {/* Nav Links */}
