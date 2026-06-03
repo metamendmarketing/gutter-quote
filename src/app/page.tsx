@@ -227,7 +227,7 @@ function HomeContent() {
   }
 
   return (
-    <div className="h-screen bg-slate-50 text-slate-900 selection:bg-brand-primary/30 flex flex-col overflow-hidden">
+    <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-brand-primary/30 flex flex-col">
       <BrandHeader />
       
       
