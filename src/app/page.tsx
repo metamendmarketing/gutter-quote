@@ -40,7 +40,7 @@ const BrandHeader = () => (
     {/* Orange Main Bar */}
     <div className="bg-brand-primary text-white py-3 px-6 lg:px-12 flex justify-between items-center shadow-md">
       <div className="flex items-center">
-        <img src="/logo_full.png" alt="Ned's Home Logo" className="h-12 md:h-16 object-contain" />
+        <img src="/logo_nolands.png" alt="Noland's Roofing Logo" className="h-12 md:h-16 object-contain" />
       </div>
       <div className="hidden xl:flex gap-8 text-[15px] font-bold tracking-wide uppercase">
         <span className="flex items-center gap-1.5 cursor-pointer hover:text-white/80 transition-colors">SERVICES <span className="text-[10px]">▼</span></span>
