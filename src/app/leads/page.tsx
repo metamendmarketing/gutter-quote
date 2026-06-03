@@ -4,6 +4,7 @@ import LeadsActions from '@/components/LeadsActions'
 
 // Force dynamic rendering so it always reads the latest file contents
 export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
 
 type Lead = {
   date: string
