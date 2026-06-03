@@ -164,7 +164,7 @@ function HomeContent() {
         // Generate lead ID and save initial partial lead
         const newLeadId = crypto.randomUUID()
         setLeadId(newLeadId)
-        fetch('/api/save-lead', {
+        fetch('/neds/demo/api/save-lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id: newLeadId, address: formattedAddress })
@@ -217,7 +217,7 @@ function HomeContent() {
     if (!email || !address) return
     setIsEmailSent(true)
     
-    fetch('/api/save-lead', {
+    fetch('/neds/demo/api/save-lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 

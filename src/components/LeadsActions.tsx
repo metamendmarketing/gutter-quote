@@ -45,7 +45,7 @@ export default function LeadsActions({ leads }: { leads: Lead[] }) {
     
     setIsClearing(true)
     try {
-      await fetch('/api/leads/clear', { method: 'POST' })
+      await fetch('/neds/demo/api/leads/clear', { method: 'POST' })
       router.refresh()
     } catch (err) {
       console.error('Failed to clear leads', err)
