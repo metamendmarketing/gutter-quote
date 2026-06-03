@@ -455,8 +455,15 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
     const canvas = canvasRef.current
     if (canvas) {
       const preventDefault = (e: Event) => e.preventDefault()
+      const preventWheel = (e: WheelEvent) => e.preventDefault()
+      
       canvas.addEventListener('contextmenu', preventDefault)
-      return () => canvas.removeEventListener('contextmenu', preventDefault)
+      canvas.addEventListener('wheel', preventWheel, { passive: false })
+      
+      return () => {
+        canvas.removeEventListener('contextmenu', preventDefault)
+        canvas.removeEventListener('wheel', preventWheel)
+      }
     }
   }, [])
 
@@ -585,7 +592,7 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
 
       <canvas 
         ref={canvasRef}
-        className={`w-full h-full ${isDragging.current ? 'cursor-move' : 'cursor-crosshair'}`}
+        className={`w-full h-full touch-none ${isDragging.current ? 'cursor-move' : 'cursor-crosshair'}`}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
