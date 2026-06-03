@@ -11,52 +11,44 @@ const LIBRARIES: any = ['places'];
 
 // Reusable Header Component to match the screenshot
 const BrandHeader = () => (
-  <header className="w-full flex flex-col font-heading">
-    {/* Navy Top Bar */}
-    <div className="bg-brand-secondary text-white py-2 px-6 lg:px-12 flex justify-end lg:justify-between items-center text-xs tracking-widest uppercase font-bold">
-      <div className="hidden lg:flex gap-3 text-[11px] whitespace-nowrap overflow-hidden">
-        <span className="cursor-pointer hover:text-brand-primary transition-colors">RESIDENTIAL ROOFING</span>
-        <span className="text-white/30">|</span>
-        <span className="cursor-pointer hover:text-brand-primary transition-colors">COMMERCIAL ROOFING</span>
-        <span className="text-white/30">|</span>
-        <span className="cursor-pointer hover:text-brand-primary transition-colors">PEST CONTROL</span>
-        <span className="text-white/30">|</span>
-        <span className="cursor-pointer hover:text-brand-primary transition-colors">LAWN TREATMENT</span>
-        <span className="text-white/30">|</span>
-        <span className="cursor-pointer hover:text-brand-primary transition-colors">WINDOW CLEANING</span>
-        <span className="text-white/30">|</span>
-        <span className="cursor-pointer hover:text-brand-primary transition-colors">POWER WASHING</span>
-        <span className="text-white/30">|</span>
-        <span className="cursor-pointer hover:text-brand-primary transition-colors">DRYER VENT CLEANING</span>
-        <span className="text-white/30">|</span>
-        <span className="cursor-pointer hover:text-brand-primary transition-colors">COMMERCIAL SERVICES</span>
+  <header className="w-full flex flex-col font-heading bg-white border-b border-slate-100 shadow-sm">
+    <div className="py-4 px-6 lg:px-12 flex justify-between items-center max-w-[1600px] mx-auto w-full">
+      {/* Logo */}
+      <div className="flex items-center shrink-0">
+        <img src="/neds/demo/logo_nolands.png" alt="Noland's Roofing Logo" className="h-16 md:h-20 object-contain" />
       </div>
-      <div className="flex items-center gap-3 pl-4 lg:border-l border-white/20 text-[13px]">
-        <Phone className="w-3 h-3 text-brand-primary" fill="currentColor" />
-        <span className="text-brand-primary">CALL <span className="text-white">(888)616-3307</span></span>
+
+      {/* Nav Links */}
+      <div className="hidden xl:flex items-center justify-center flex-1 gap-8 text-[14px] font-bold tracking-wide text-[#b80028] uppercase px-8">
+        <span className="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity">ROOFING SERVICES <span className="text-[10px] opacity-70">▼</span></span>
+        <span className="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity">HOME RENOVATIONS <span className="text-[10px] opacity-70">▼</span></span>
+        <span className="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity">WHY NOLAND'S <span className="text-[10px] opacity-70">▼</span></span>
+        <span className="cursor-pointer hover:opacity-80 transition-opacity">FINANCING</span>
+        <span className="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity">SAMPLE WORK <span className="text-[10px] opacity-70">▼</span></span>
+        <span className="cursor-pointer hover:opacity-80 transition-opacity">BLOG</span>
+        <span className="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity">CONTACT <span className="text-[10px] opacity-70">▼</span></span>
       </div>
-    </div>
-    
-    {/* Orange Main Bar */}
-    <div className="bg-brand-primary text-white py-3 px-6 lg:px-12 flex justify-between items-center shadow-md">
-      <div className="flex items-center">
-        <img src="/neds/demo/logo_nolands.png" alt="Noland's Roofing Logo" className="h-12 md:h-16 object-contain" />
-      </div>
-      <div className="hidden xl:flex gap-8 text-[15px] font-bold tracking-wide uppercase">
-        <span className="flex items-center gap-1.5 cursor-pointer hover:text-white/80 transition-colors">SERVICES <span className="text-[10px]">▼</span></span>
-        <span className="flex items-center gap-1.5 cursor-pointer hover:text-white/80 transition-colors">LOCATIONS <span className="text-[10px]">▼</span></span>
-        <span className="cursor-pointer hover:text-white/80 transition-colors">BLOG</span>
-        <span className="flex items-center gap-1.5 cursor-pointer hover:text-white/80 transition-colors">SUPPORT <span className="text-[10px]">▼</span></span>
-        <span className="flex items-center gap-1.5 cursor-pointer hover:text-white/80 transition-colors">ABOUT US <span className="text-[10px]">▼</span></span>
-      </div>
-      <div className="flex items-center gap-6">
-        <div className="hidden md:flex items-center gap-2 font-bold text-[15px] cursor-pointer hover:text-white/80 transition-colors uppercase tracking-wide">
-          <User className="w-4 h-4" strokeWidth={3} />
-          ACCOUNT
-        </div>
-        <button className="bg-white text-brand-primary px-6 py-2.5 font-bold text-[15px] uppercase tracking-wide rounded shadow hover:bg-slate-100 transition-colors">
-          Get A Free Quote
-        </button>
+
+      {/* Social Icons */}
+      <div className="flex items-center gap-4 shrink-0 text-brand-primary">
+        <a href="#" className="hover:opacity-80 transition-opacity bg-brand-primary/10 p-2 rounded text-brand-primary">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.6l.4-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+        <a href="#" className="hover:opacity-80 transition-opacity bg-brand-primary/10 p-2 rounded text-brand-primary">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="#" className="hover:opacity-80 transition-opacity bg-brand-primary/10 p-2 rounded text-brand-primary">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path>
+            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+          </svg>
+        </a>
       </div>
     </div>
   </header>
