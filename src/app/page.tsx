@@ -15,9 +15,9 @@ const BrandHeader = () => (
     {/* Navy Top Bar */}
     <div className="bg-brand-secondary text-white py-2 px-6 lg:px-12 flex justify-end lg:justify-between items-center text-xs tracking-widest uppercase font-bold">
       <div className="hidden lg:flex gap-3 text-[11px] whitespace-nowrap overflow-hidden">
-        <span className="cursor-pointer hover:text-brand-primary transition-colors">GUTTER CLEANING</span>
+        <span className="cursor-pointer hover:text-brand-primary transition-colors">RESIDENTIAL ROOFING</span>
         <span className="text-white/30">|</span>
-        <span className="cursor-pointer hover:text-brand-primary transition-colors">GUTTER INSTALLATION</span>
+        <span className="cursor-pointer hover:text-brand-primary transition-colors">COMMERCIAL ROOFING</span>
         <span className="text-white/30">|</span>
         <span className="cursor-pointer hover:text-brand-primary transition-colors">PEST CONTROL</span>
         <span className="text-white/30">|</span>
@@ -40,7 +40,7 @@ const BrandHeader = () => (
     {/* Orange Main Bar */}
     <div className="bg-brand-primary text-white py-3 px-6 lg:px-12 flex justify-between items-center shadow-md">
       <div className="flex items-center">
-        <img src="/logo_nolands.png" alt="Noland's Roofing Logo" className="h-12 md:h-16 object-contain" />
+        <img src="/neds/demo/logo_nolands.png" alt="Noland's Roofing Logo" className="h-12 md:h-16 object-contain" />
       </div>
       <div className="hidden xl:flex gap-8 text-[15px] font-bold tracking-wide uppercase">
         <span className="flex items-center gap-1.5 cursor-pointer hover:text-white/80 transition-colors">SERVICES <span className="text-[10px]">▼</span></span>
@@ -124,7 +124,7 @@ function HomeContent() {
   const [address, setAddress] = useState('')
   const [mapCenter, setMapCenter] = useState<{lat: number, lng: number} | null>(null)
   const [perimeter, setPerimeter] = useState<number>(0) // in feet
-  const pricePerFoot = 3.50 // $3.50 per linear foot of gutter
+  const pricePerFoot = 8.50 // $8.50 per linear foot of roofing
 
   // Questionnaire state
   const [stories, setStories] = useState<number | null>(null)
@@ -252,7 +252,7 @@ function HomeContent() {
               {/* Dark Navy Info Block */}
               <div className="flex-1 bg-brand-secondary text-white p-6 md:p-10 rounded-2xl shadow-xl flex flex-col justify-center">
                 <h2 className="font-heading text-3xl md:text-4xl text-white mb-4 uppercase tracking-wide">
-                  Instant Gutter Quotes. No Waiting.
+                  Instant Roofing Quotes. No Waiting.
                 </h2>
                 <p className="text-slate-300 text-base md:text-lg mb-8 leading-relaxed font-body">
                   Noland's Roofing delivers expert craftsmanship and unbeatable service across Florida. Get an exact, locked-in price for your roofing project in seconds.
@@ -296,7 +296,7 @@ function HomeContent() {
               {/* Right Side Image/Graphic Placeholder */}
               <div className="flex-1 rounded-2xl bg-slate-200 overflow-hidden shadow-xl relative min-h-[300px] lg:min-h-full">
                 <img 
-                  src="/clean_gutters.png" 
+                  src="/neds/demo/clean_gutters.png" 
                   alt="Gutter Cleaning" 
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -340,10 +340,10 @@ function HomeContent() {
                   <div className={`bg-slate-50 p-5 rounded-xl border border-slate-200 shrink-0 ${perimeter === 0 ? 'block' : 'hidden'}`}>
                     <h4 className="font-heading text-xl font-medium tracking-wide text-brand-secondary flex items-center gap-2 mb-2">
                       <span className="flex items-center justify-center w-5 h-5 rounded bg-brand-primary text-white text-xs">1</span>
-                      Trace your gutters
+                      Trace your roof
                     </h4>
                     <p className="text-slate-600 text-sm leading-relaxed mb-5 font-body">
-                      Click on the map to draw lines along your roof's edge where gutters are located.
+                      Click on the map to draw lines along your roof's edge.
                     </p>
                     <h4 className="font-heading text-xl font-medium tracking-wide text-brand-secondary flex items-center gap-2 mb-2">
                       <span className="flex items-center justify-center w-5 h-5 rounded bg-brand-primary text-white text-xs">2</span>
@@ -473,9 +473,9 @@ function HomeContent() {
               </div>
               <div className="p-6 space-y-4">
                 {[
-                  { id: 'minor gutter repairs', label: 'Minor Gutter Repairs', desc: 'Add 20% to total quote' },
+                  { id: 'minor roof repairs', label: 'Minor Roof Repairs', desc: 'Add 20% to total quote' },
                   { id: 'downspout cleaning', label: 'Downspout Cleaning', desc: 'Add $100 flat rate' },
-                  { id: 'Gutter Guard Installation', label: 'Gutter Guard Installation', desc: 'Add $15/foot flat rate' }
+                  { id: 'Roof Inspection', label: 'Detailed Roof Inspection', desc: 'Add $150 flat rate' }
                 ].map(service => (
                   <label key={service.id} className={`flex items-start gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedServices.includes(service.id) ? 'border-brand-secondary bg-slate-50' : 'border-slate-100 hover:border-slate-200'}`}>
                     <div className="pt-0.5">
