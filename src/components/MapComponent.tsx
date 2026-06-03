@@ -162,7 +162,11 @@ const MapComponent = memo(function MapComponent({
 
 
   const handleUndo = () => {
-    setCurrentLine(prev => prev.slice(0, -1));
+    if (currentLine.length > 0) {
+      setCurrentLine(prev => prev.slice(0, -1));
+    } else if (completedLines.length > 0) {
+      setCompletedLines(prev => prev.slice(0, -1));
+    }
   }
 
   return (
@@ -191,7 +195,7 @@ const MapComponent = memo(function MapComponent({
               Clear
             </button>
             
-            {currentLine.length > 0 && (
+            {(completedLines.length > 0 || currentLine.length > 0) && (
               <button 
                 onClick={handleUndo}
                 className="bg-white hover:bg-slate-50 text-slate-700 px-4 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 border border-slate-200 transition-all hover:scale-105 text-sm"
