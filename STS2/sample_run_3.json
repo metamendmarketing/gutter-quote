@@ -1,0 +1,11 @@
+{
+  "playtime": 3100,
+  "score": 2100,
+  "is_ascension_mode": true,
+  "ascension_level": 20,
+  "character_chosen": "THE_DEFECT",
+  "victory": true,
+  "floor_reached": 51,
+  "master_deck": ["Strike_B", "Defend_B", "Zap", "Dualcast", "Glacier", "Defragment", "Biased Cognition", "Coolheaded", "Ball Lightning"],
+  "relics": ["Cracked Core", "Data Disk", "Nuclear Battery"]
+}

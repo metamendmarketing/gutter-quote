@@ -1,0 +1,11 @@
+{
+  "playtime": 2450,
+  "score": 1850,
+  "is_ascension_mode": true,
+  "ascension_level": 15,
+  "character_chosen": "THE_IRONCLAD",
+  "victory": true,
+  "floor_reached": 51,
+  "master_deck": ["Strike_R", "Defend_R", "Bash", "Perfected Strike", "Demon Form", "Pommel Strike", "Shrug It Off"],
+  "relics": ["Burning Blood", "Vajra"]
+}
