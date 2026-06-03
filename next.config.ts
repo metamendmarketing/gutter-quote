@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath: '/neds/demo',
+  basePath: '/nolands/gutterquote',
   serverExternalPackages: ["canvas"],
   turbopack: {
     resolveAlias: {
