@@ -71,8 +71,8 @@ export async function POST(req: Request) {
                 </p>
 
                 <!-- Price Box -->
-                <div style="background-color: #fff7f0; border-left: 4px solid #E36C09; padding: 20px 24px; border-radius: 6px; margin-bottom: 28px;">
-                  <p style="font-size: 13px; font-weight: 600; color: #E36C09; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 4px 0;">Estimated Price</p>
+                <div style="background-color: #fdf0f2; border-left: 4px solid #b80028; padding: 20px 24px; border-radius: 6px; margin-bottom: 28px;">
+                  <p style="font-size: 13px; font-weight: 600; color: #b80028; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 4px 0;">Estimated Price</p>
                   <p style="font-size: 38px; font-weight: 800; color: #1A1A1A; margin: 0;">$${quote}</p>
                   <p style="font-size: 13px; color: #777777; margin: 6px 0 0 0;">Based on ${perimeter} linear feet of roof line.</p>
                 </div>
@@ -104,7 +104,7 @@ export async function POST(req: Request) {
                 <!-- CTA -->
                 <div style="background-color: #f9fafb; border-radius: 8px; padding: 24px; text-align: center; margin-top: 16px;">
                   <p style="font-size: 15px; color: #444444; margin: 0 0 16px 0; font-weight: 500;">Ready to get started? Our team is standing by.</p>
-                  <a href="https://nolandsroofing.com/contact" style="background-color: #E36C09; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block; letter-spacing: 0.3px;">Schedule Your Service →</a>
+                  <a href="https://nolandsroofing.com/contact" style="background-color: #b80028; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 700; font-size: 15px; display: inline-block; letter-spacing: 0.3px;">Schedule Your Service →</a>
                 </div>
 
                 <!-- Footer -->

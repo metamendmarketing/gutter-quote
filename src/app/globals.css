@@ -11,8 +11,8 @@
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
   
-  --color-brand-primary: #E36C09; /* Noland's Orange */
-  --color-brand-primary-hover: #C85E08; /* Darker Noland's Orange */
+  --color-brand-primary: #b80028; /* Noland's Red */
+  --color-brand-primary-hover: #8f001e; /* Darker Noland's Red */
   --color-brand-secondary: #1A1A1A; /* Charcoal */
   --color-brand-secondary-hover: #111111; /* Darker Charcoal */
 }

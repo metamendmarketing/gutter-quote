@@ -198,7 +198,7 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
       for (let i = 1; i < line.length; i++) {
         ctx.lineTo(line[i].x, line[i].y)
       }
-      ctx.strokeStyle = '#E36C09' // Noland's Orange
+      ctx.strokeStyle = '#b80028' // Noland's Red
       ctx.lineWidth = 4 / view.current.zoom
       ctx.lineJoin = 'round'
       ctx.lineCap = 'round'
@@ -225,7 +225,7 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
         ctx.lineTo(mousePos.x, mousePos.y)
       }
 
-      ctx.strokeStyle = '#C85E08' // Noland's Darker Orange (active line)
+      ctx.strokeStyle = '#8f001e' // Noland's Darker Red (active line)
       ctx.lineWidth = 5 / view.current.zoom
       ctx.lineJoin = 'round'
       ctx.lineCap = 'round'
