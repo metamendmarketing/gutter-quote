@@ -211,7 +211,7 @@ const MapComponent = memo(function MapComponent({
           onClick={() => (window as any).__addMapPoint && (window as any).__addMapPoint()}
           className="pointer-events-auto bg-brand-primary hover:bg-brand-primary-hover text-white w-full max-w-sm py-4 rounded-xl font-bold shadow-2xl flex items-center justify-center gap-2 text-lg border-2 border-white/20"
         >
-          Add Point
+          {currentLine.length === 0 ? 'Start Line' : 'Finish Line'}
         </button>
       </div>
 

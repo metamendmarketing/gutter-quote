@@ -517,7 +517,7 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
           >
             {isCalibrating 
               ? (!calibrationStart ? 'Set Start Point' : 'Set End Point') 
-              : 'Add Point'}
+              : (currentLine.length === 0 ? 'Start Line' : 'Finish Line')}
           </button>
         </div>
       ) : null}
