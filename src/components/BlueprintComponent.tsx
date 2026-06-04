@@ -43,6 +43,7 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
   const containerRef = useRef<HTMLDivElement>(null)
   const offscreenCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const originalSize = useRef({ width: 0, height: 0 })
+  const lastPinchDistance = useRef<number | null>(null)
 
   // Recalculate perimeter when points or calibration change
   useEffect(() => {
@@ -362,11 +363,23 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
     }
   }
 
+  const getDistance = (touches: React.TouchList) => {
+    const dx = touches[0].clientX - touches[1].clientX
+    const dy = touches[0].clientY - touches[1].clientY
+    return Math.sqrt(dx * dx + dy * dy)
+  }
+
   // Interaction Handlers
   const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
     if (!file) return
-    const screenPos = getMousePos(e)
 
+    if ('touches' in e && e.touches.length === 2) {
+      lastPinchDistance.current = getDistance(e.touches)
+      isDragging.current = false
+      return
+    }
+
+    const screenPos = getMousePos(e)
     pointerDownPos.current = screenPos
     isDragging.current = true
     dragStart.current = { x: screenPos.x - view.current.panX, y: screenPos.y - view.current.panY }
@@ -374,6 +387,23 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
 
   const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
     if (!file) return
+
+    if ('touches' in e && e.touches.length === 2) {
+      const currentDist = getDistance(e.touches)
+      if (lastPinchDistance.current !== null) {
+        const zoomFactor = currentDist / lastPinchDistance.current
+        const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2
+        const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2
+        
+        if (canvasRef.current) {
+          const rect = canvasRef.current.getBoundingClientRect()
+          doZoom(zoomFactor, midX - rect.left, midY - rect.top)
+        }
+      }
+      lastPinchDistance.current = currentDist
+      return
+    }
+
     const screenPos = getMousePos(e)
     const worldPos = screenToWorld(screenPos)
     
@@ -418,6 +448,17 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
   }
 
   const handlePointerUp = (e: React.MouseEvent | React.TouchEvent) => {
+    if ('touches' in e) {
+      if (e.touches.length < 2) {
+        lastPinchDistance.current = null
+      }
+      if (e.touches.length > 0) {
+        pointerDownPos.current = null
+        isDragging.current = false
+        return
+      }
+    }
+
     isDragging.current = false
     
     if (!pointerDownPos.current || !file) return
@@ -681,10 +722,14 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
       <canvas 
         ref={canvasRef}
         className={`w-full h-full touch-none ${isDragging.current ? 'cursor-move' : 'cursor-crosshair'}`}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerUp}
+        onMouseDown={handlePointerDown}
+        onTouchStart={handlePointerDown}
+        onMouseMove={handlePointerMove}
+        onTouchMove={handlePointerMove}
+        onMouseUp={handlePointerUp}
+        onTouchEnd={handlePointerUp}
+        onMouseLeave={handlePointerUp}
+        onTouchCancel={handlePointerUp}
         onWheel={handleWheel}
       />
     </div>
