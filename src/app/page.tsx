@@ -316,7 +316,7 @@ function HomeContent() {
               </div>
 
               <div className="p-5 flex-1 overflow-y-auto flex flex-col scrollbar-thin scrollbar-thumb-slate-200">
-                <div className="bg-slate-50 border border-slate-200 p-5 rounded-xl text-center relative overflow-hidden mb-5 text-brand-secondary shadow-sm shrink-0">
+                <div className="hidden md:block bg-slate-50 border border-slate-200 p-5 rounded-xl text-center relative overflow-hidden mb-5 text-brand-secondary shadow-sm shrink-0">
                   <Calculator className="w-32 h-32 absolute -right-8 -bottom-8 text-slate-200" />
                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1 relative z-10">Estimated Price</p>
                   <h3 className="font-heading text-5xl md:text-6xl font-bold relative z-10 tracking-wide text-brand-primary">
@@ -422,6 +422,20 @@ function HomeContent() {
                       {isEmailSent ? 'Quote Sent!' : 'Email me my quote'}
                     </button>
                   </div>
+                </div>
+              </div>
+
+              {/* Mobile Sticky Quote Footer */}
+              <div className="md:hidden bg-slate-50 border-t border-slate-200 p-4 flex justify-between items-center shrink-0 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Estimated Price</span>
+                  <span className="font-heading text-3xl font-bold text-brand-primary">
+                    {stories === null ? '--' : `$${quote}`}
+                  </span>
+                </div>
+                <div className="text-right flex flex-col">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Perimeter</span>
+                  <span className="font-bold text-base text-slate-700">{Math.round(perimeter)} ft</span>
                 </div>
               </div>
             </div>
