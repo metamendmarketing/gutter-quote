@@ -464,7 +464,7 @@ function HomeContent() {
                     Add another service to your quote
                   </button>
                   
-                  <div className="space-y-2 mt-2">
+                  <div className="hidden md:block space-y-2 mt-2">
                     <input 
                       type="email" 
                       value={email}
@@ -485,16 +485,36 @@ function HomeContent() {
               </div>
 
               {/* Mobile Sticky Quote Footer */}
-              <div className="md:hidden bg-slate-50 border-t border-slate-200 p-4 flex justify-between items-center shrink-0 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Estimated Price</span>
-                  <span className="font-heading text-3xl font-bold text-brand-primary">
-                    {stories === null ? '--' : `$${quote}`}
-                  </span>
+              <div className="md:hidden bg-slate-50 border-t border-slate-200 p-4 flex flex-col gap-3 shrink-0 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                <div className="flex justify-between items-center">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Estimated Price</span>
+                    <span className="font-heading text-3xl font-bold text-brand-primary">
+                      {stories === null ? '--' : `$${quote}`}
+                    </span>
+                  </div>
+                  <div className="text-right flex flex-col">
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Perimeter</span>
+                    <span className="font-bold text-base text-slate-700">{Math.round(perimeter)} ft</span>
+                  </div>
                 </div>
-                <div className="text-right flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Perimeter</span>
-                  <span className="font-bold text-base text-slate-700">{Math.round(perimeter)} ft</span>
+
+                <div className="space-y-2">
+                  <input 
+                    type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={perimeter === 0 || isEmailSent}
+                    placeholder="Enter your email address..."
+                    className="w-full border-2 border-slate-200 rounded-lg p-3 text-sm font-medium focus:outline-none focus:border-brand-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                  />
+                  <button 
+                    onClick={handleEmailSubmit}
+                    disabled={perimeter === 0 || !email || isEmailSent}
+                    className={`w-full ${isEmailSent ? 'bg-green-500' : 'bg-brand-primary hover:bg-brand-primary-hover'} text-white px-5 py-3 rounded-lg font-heading font-medium tracking-wide uppercase text-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md`}
+                  >
+                    {isEmailSent ? 'Quote Sent!' : 'Email me my quote'}
+                  </button>
                 </div>
               </div>
             </div>
