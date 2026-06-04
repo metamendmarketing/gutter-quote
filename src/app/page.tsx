@@ -205,7 +205,7 @@ function HomeContent() {
   const quote = finalQuote > 0 ? finalQuote.toFixed(2) : '--'
 
   const handleEmailSubmit = async () => {
-    if (!email || !address) return
+    if (!email) return
     setIsEmailSent(true)
     
     fetch('/neds/demo/api/save-lead', {
@@ -213,7 +213,7 @@ function HomeContent() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         id: leadId,
-        address, 
+        address: address || 'Blueprint Quote', 
         email,
         quote,
         perimeter: Math.round(perimeter),
