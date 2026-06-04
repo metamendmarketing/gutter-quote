@@ -26,6 +26,7 @@ const MapComponent = memo(function MapComponent({
   const map = useMap('main-satellite-map')
   const geometryLib = useMapsLibrary('geometry')
   const currentLineRef = useRef<google.maps.LatLngLiteral[]>([])
+  const markersRef = useRef<google.maps.Marker[]>([])
   useEffect(() => {
     currentLineRef.current = currentLine;
   }, [currentLine]);
@@ -93,10 +94,60 @@ const MapComponent = memo(function MapComponent({
         clickable: false,
       })
     );
+
+    // Create Draggable Handles for Mobile
+    markersRef.current.forEach(m => m.setMap(null));
+    markersRef.current = [];
+    
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      completedLines.forEach((line, lineIndex) => {
+        line.forEach((pt, ptIndex) => {
+          const marker = new google.maps.Marker({
+            position: pt,
+            map,
+            draggable: true,
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 12,
+              fillColor: '#ffffff',
+              fillOpacity: 1,
+              strokeColor: '#b80028',
+              strokeWeight: 3,
+            },
+            zIndex: 10,
+          });
+
+          // Live update visuals
+          marker.addListener('drag', (e: google.maps.MapMouseEvent) => {
+            if (e.latLng) {
+              const polyline = polylinesRef.current[lineIndex];
+              const path = polyline.getPath();
+              path.setAt(ptIndex, e.latLng);
+            }
+          });
+
+          // Save state on drag end
+          marker.addListener('dragend', (e: google.maps.MapMouseEvent) => {
+            if (e.latLng) {
+              setCompletedLines(prev => {
+                const newLines = [...prev];
+                const newLine = [...newLines[lineIndex]];
+                newLine[ptIndex] = { lat: e.latLng!.lat(), lng: e.latLng!.lng() };
+                newLines[lineIndex] = newLine;
+                return newLines;
+              });
+            }
+          });
+
+          markersRef.current.push(marker);
+        });
+      });
+    }
     
     // Cleanup on unmount or deps change
     return () => {
       polylinesRef.current.forEach(pl => pl.setMap(null));
+      markersRef.current.forEach(m => m.setMap(null));
     }
   }, [completedLines, map]);
 

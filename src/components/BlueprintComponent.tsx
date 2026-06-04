@@ -43,6 +43,7 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
   const containerRef = useRef<HTMLDivElement>(null)
   const offscreenCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const originalSize = useRef({ width: 0, height: 0 })
+  const draggedVertexRef = useRef<{ lineIndex: number, pointIndex: number } | null>(null)
 
   // Recalculate perimeter when points or calibration change
   useEffect(() => {
@@ -216,9 +217,7 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
     if (currentLine.length > 0) {
       ctx.beginPath()
       ctx.moveTo(currentLine[0].x, currentLine[0].y)
-      for (let i = 1; i < currentLine.length; i++) {
-        ctx.lineTo(currentLine[i].x, currentLine[i].y)
-      }
+      currentLine.forEach(p => ctx.lineTo(p.x, p.y))
       
       // Preview to mouse
       if (!isCalibrating && mousePos && !isDragging.current) {
@@ -230,12 +229,34 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
       ctx.lineJoin = 'round'
       ctx.lineCap = 'round'
       ctx.stroke()
-
+      
       ctx.fillStyle = '#14173D'
       currentLine.forEach(p => {
         ctx.beginPath()
         ctx.arc(p.x, p.y, 4 / view.current.zoom, 0, Math.PI * 2)
         ctx.fill()
+      })
+    }
+
+    // Draw vertex handles on mobile
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      completedLines.forEach((line) => {
+        line.forEach((pt) => {
+          // Revert scale context for handles so they are fixed screen size
+          ctx.save()
+          ctx.setTransform(1, 0, 0, 1, view.current.panX, view.current.panY)
+          const scaledX = pt.x * view.current.zoom
+          const scaledY = pt.y * view.current.zoom
+          
+          ctx.beginPath()
+          ctx.arc(scaledX, scaledY, 12, 0, Math.PI * 2)
+          ctx.fillStyle = '#ffffff'
+          ctx.fill()
+          ctx.lineWidth = 3
+          ctx.strokeStyle = '#b80028'
+          ctx.stroke()
+          ctx.restore()
+        })
       })
     }
 
@@ -344,6 +365,33 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
     if (!file) return
     const screenPos = getMousePos(e)
 
+    // Check if we hit a vertex handle (mobile only)
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      const hitRadius = 25 // generous touch target
+      let hit = false
+      for (let i = 0; i < completedLines.length; i++) {
+        for (let j = 0; j < completedLines[i].length; j++) {
+          const pt = completedLines[i][j]
+          const sx = pt.x * view.current.zoom + view.current.panX
+          const sy = pt.y * view.current.zoom + view.current.panY
+          const dx = sx - screenPos.x
+          const dy = sy - screenPos.y
+          if (Math.sqrt(dx * dx + dy * dy) <= hitRadius) {
+            draggedVertexRef.current = { lineIndex: i, pointIndex: j }
+            hit = true
+            break
+          }
+        }
+        if (hit) break
+      }
+      
+      if (hit) {
+        pointerDownPos.current = screenPos
+        isDragging.current = true
+        return // Don't start panning
+      }
+    }
+
     pointerDownPos.current = screenPos
     isDragging.current = true
     dragStart.current = { x: screenPos.x - view.current.panX, y: screenPos.y - view.current.panY }
@@ -357,6 +405,19 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
     setMousePos(worldPos)
 
     if (isDragging.current && pointerDownPos.current) {
+      if (draggedVertexRef.current) {
+        // Dragging a vertex
+        const { lineIndex, pointIndex } = draggedVertexRef.current
+        setCompletedLines(prev => {
+          const newLines = [...prev]
+          const newLine = [...newLines[lineIndex]]
+          newLine[pointIndex] = worldPos
+          newLines[lineIndex] = newLine
+          return newLines
+        })
+        return // Don't pan
+      }
+
       const dx = screenPos.x - pointerDownPos.current.x
       const dy = screenPos.y - pointerDownPos.current.y
       
@@ -371,6 +432,12 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
   const handlePointerUp = (e: React.MouseEvent | React.TouchEvent) => {
     isDragging.current = false
     
+    if (draggedVertexRef.current) {
+      draggedVertexRef.current = null
+      pointerDownPos.current = null
+      return
+    }
+
     if (!pointerDownPos.current || !file) return
     
     const screenPos = getMousePos(e)
