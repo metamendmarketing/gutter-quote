@@ -124,7 +124,7 @@ function HomeContent() {
   const pricePerFoot = 8.50 // $8.50 per linear foot of roofing
 
   // Questionnaire state
-  const [stories, setStories] = useState<number | null>(null)
+  const [stories, setStories] = useState<number>(1)
   const [treeCoverage, setTreeCoverage] = useState<string>('No')
   const [lastCleaned, setLastCleaned] = useState<string>('< 1 year')
   const [steepRoof, setSteepRoof] = useState<boolean>(false)
