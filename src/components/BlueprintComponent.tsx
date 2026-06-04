@@ -682,7 +682,7 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
 
       {/* Status Overlay */}
       {isCalibrating && !showCalibrationPrompt && (
-        <div className="absolute top-24 left-1/2 -translate-x-1/2 bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow-lg z-20 animate-pulse pointer-events-none">
+        <div className="hidden md:block absolute top-24 left-1/2 -translate-x-1/2 bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow-lg z-20 animate-pulse pointer-events-none">
           {!calibrationStart ? "Click first point of a known measurement" : "Click second point to finish line"}
         </div>
       )}
