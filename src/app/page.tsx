@@ -5,7 +5,7 @@ import { APIProvider, useMapsLibrary } from '@vis.gl/react-google-maps'
 import MapComponent from '@/components/MapComponent'
 import dynamic from 'next/dynamic'
 const BlueprintComponent = dynamic(() => import('@/components/BlueprintComponent'), { ssr: false })
-import { MapPin, Calculator, ArrowRight, Phone, User, X, ChevronDown } from 'lucide-react'
+import { MapPin, Calculator, ArrowRight, Phone, User, X, ChevronDown, Check, Maximize2 } from 'lucide-react'
 
 const LIBRARIES: any = ['places'];
 
@@ -132,6 +132,7 @@ function HomeContent() {
   const [isGeocoding, setIsGeocoding] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [leadId, setLeadId] = useState<string | null>(null)
+  const [mobileMapMinimized, setMobileMapMinimized] = useState(false)
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -298,7 +299,7 @@ function HomeContent() {
           <div className="flex-1 w-full flex flex-col-reverse md:flex-row min-h-0">
             
             {/* Sidebar Quote Panel */}
-            <div className="w-full md:w-80 lg:w-96 bg-white border-r md:border-r border-slate-200 shadow-xl z-10 flex flex-col shrink-0 max-h-[20vh] md:max-h-none border-t md:border-t-0">
+            <div className={`w-full md:w-80 lg:w-96 bg-white border-r md:border-r border-slate-200 shadow-xl z-10 flex flex-col shrink-0 border-t md:border-t-0 transition-all duration-300 ${mobileMapMinimized ? 'flex-1 md:max-h-none overflow-y-auto' : 'max-h-[25vh] md:max-h-none'}`}>
               <div className="bg-white text-brand-secondary p-5 border-b border-slate-200 flex items-center justify-between">
                 <div>
                   <h2 className="font-heading text-2xl font-medium uppercase tracking-widest">Your Quote</h2>
@@ -421,7 +422,25 @@ function HomeContent() {
             </div>
 
             {/* Map / Blueprint Area */}
-            <div className="flex-1 relative bg-slate-200 flex flex-col">
+            <div className={`relative bg-slate-200 flex flex-col transition-all duration-300 ${mobileMapMinimized ? 'h-[25vh] md:h-auto md:flex-1 shrink-0' : 'flex-1'}`}>
+              
+              <div className="md:hidden absolute top-4 right-4 z-[60]">
+                {mobileMapMinimized ? (
+                  <button 
+                    onClick={() => setMobileMapMinimized(false)}
+                    className="bg-white/90 backdrop-blur text-brand-secondary px-4 py-2 rounded-full font-bold shadow-lg border border-slate-200 text-sm flex items-center gap-2"
+                  >
+                    <Maximize2 className="w-4 h-4" /> Expand Map
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => setMobileMapMinimized(true)}
+                    className="bg-brand-primary text-white px-4 py-2 rounded-full font-bold shadow-lg border border-brand-primary-hover text-sm flex items-center gap-2"
+                  >
+                    <Check className="w-4 h-4" /> Finish Drawing
+                  </button>
+                )}
+              </div>
               
 
 
