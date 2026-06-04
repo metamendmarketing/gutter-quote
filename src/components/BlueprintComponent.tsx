@@ -300,16 +300,26 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
 
   // Resize canvas to match container
   useEffect(() => {
-    if (!file) return
+    if (!file || !containerRef.current) return
+    const container = containerRef.current
+    
     const handleResize = () => {
-      if (canvasRef.current && containerRef.current) {
-        canvasRef.current.width = containerRef.current.clientWidth
-        canvasRef.current.height = containerRef.current.clientHeight
+      if (canvasRef.current && container) {
+        canvasRef.current.width = container.clientWidth
+        canvasRef.current.height = container.clientHeight
       }
     }
+    
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize()
+    })
+    
     handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    resizeObserver.observe(container)
+    
+    return () => {
+      resizeObserver.disconnect()
+    }
   }, [file])
 
   // Coordinate Helpers
