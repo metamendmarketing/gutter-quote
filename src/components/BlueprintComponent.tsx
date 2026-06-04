@@ -557,13 +557,13 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
               )}
               
               {currentLine.length === 0 && completedLines.length > 0 && (
-                <div className="bg-brand-secondary/90 backdrop-blur-md text-white px-4 py-3 rounded-full shadow-2xl flex items-center gap-2 border border-brand-secondary-hover text-sm font-medium">
+                <div className="hidden md:flex bg-brand-secondary/90 backdrop-blur-md text-white px-4 py-3 rounded-full shadow-2xl items-center gap-2 border border-brand-secondary-hover text-sm font-medium">
                   Tap to start another line
                 </div>
               )}
             </div>
           ) : (
-            <div className="pointer-events-auto bg-brand-secondary/90 backdrop-blur-md text-white pl-6 pr-6 py-3 rounded-2xl shadow-2xl flex items-center gap-4 border border-brand-secondary-hover">
+            <div className="hidden md:flex pointer-events-auto bg-brand-secondary/90 backdrop-blur-md text-white pl-6 pr-6 py-3 rounded-2xl shadow-2xl items-center gap-4 border border-brand-secondary-hover">
               <div className="flex items-center gap-3">
                 <div className="bg-brand-primary/20 p-2 rounded-full text-brand-primary">
                   <MousePointerClick className="w-5 h-5 animate-pulse" />

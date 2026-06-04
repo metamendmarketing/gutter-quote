@@ -240,20 +240,20 @@ const MapComponent = memo(function MapComponent({
 
             
             {currentLine.length === 0 && completedLines.length > 0 && (
-              <div className="bg-brand-secondary/90 backdrop-blur-md text-white px-4 py-3 rounded-full shadow-2xl flex items-center gap-2 border border-brand-secondary-hover text-sm font-medium">
+              <div className="hidden md:flex bg-brand-secondary/90 backdrop-blur-md text-white px-4 py-3 rounded-full shadow-2xl items-center gap-2 border border-brand-secondary-hover text-sm font-medium">
                 Tap map to add another line
               </div>
             )}
           </div>
         ) : (
-          <div className="pointer-events-auto bg-brand-secondary/90 backdrop-blur-md text-white pl-6 pr-6 py-3 rounded-2xl shadow-2xl flex items-center gap-4 border border-brand-secondary-hover">
+          <div className="hidden md:flex pointer-events-auto bg-brand-secondary/90 backdrop-blur-md text-white pl-6 pr-6 py-3 rounded-2xl shadow-2xl items-center gap-4 border border-brand-secondary-hover">
             <div className="flex items-center gap-3">
               <div className="bg-brand-primary/20 p-2 rounded-full text-brand-primary">
                 <MousePointerClick className="w-5 h-5 animate-pulse" />
               </div>
-              <div>
-                <p className="font-bold text-sm">Draw gutters</p>
-                <p className="text-xs text-slate-300">Tap map to trace gutter lines.</p>
+              <div className="flex flex-col">
+                <span className="font-bold text-lg leading-tight tracking-tight">Tap map to place lines</span>
+                <span className="text-sm text-brand-primary font-medium">Tap twice to finish line</span>
               </div>
             </div>
           </div>
