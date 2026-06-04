@@ -521,16 +521,14 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
         <div className="absolute w-2 h-2 border-2 border-brand-primary rounded-full bg-white/50"></div>
       </div>
 
-      {/* Mobile Sniper Button */}
-      {(!isCalibrating && pixelsPerFoot) || (isCalibrating && !showCalibrationPrompt) ? (
-        <div className="md:hidden absolute bottom-24 left-1/2 -translate-x-1/2 pointer-events-none z-30 flex justify-center w-full px-6">
+      {/* Mobile Sniper Button (Calibration) */}
+      {isCalibrating && !showCalibrationPrompt ? (
+        <div className="md:hidden absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none z-30 flex justify-center w-full px-6">
           <button 
             onClick={handleAddPointMobile}
             className="pointer-events-auto bg-brand-primary hover:bg-brand-primary-hover text-white w-full max-w-sm py-4 rounded-xl font-bold shadow-2xl flex items-center justify-center gap-2 text-lg border-2 border-white/20"
           >
-            {isCalibrating 
-              ? (!calibrationStart ? 'Set Start Point' : 'Set End Point') 
-              : (currentLine.length === 0 ? 'Start Line' : 'Finish Line')}
+            {!calibrationStart ? 'Set Start Point' : 'Set End Point'}
           </button>
         </div>
       ) : null}
@@ -549,8 +547,40 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
       {/* Custom Floating UI (Matches Map View) */}
       {!isCalibrating && pixelsPerFoot && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 w-full px-4 pointer-events-none z-20">
+          
+          {/* Mobile Sniper Row */}
+          <div className="md:hidden pointer-events-auto flex items-center justify-center gap-2 w-full max-w-sm">
+            {(completedLines.length > 0 || currentLine.length > 0) && (
+              <button 
+                onClick={handleClear}
+                className="bg-white hover:bg-red-50 text-red-600 px-3 py-3 rounded-full font-bold shadow-2xl flex items-center justify-center gap-1.5 border border-red-100 transition-all hover:scale-105 text-sm flex-1"
+              >
+                <Trash2 className="w-4 h-4" />
+                <span>Clear</span>
+              </button>
+            )}
+            
+            {(completedLines.length > 0 || currentLine.length > 0) && (
+              <button 
+                onClick={handleUndo}
+                className="bg-white hover:bg-slate-50 text-slate-700 px-3 py-3 rounded-full font-bold shadow-2xl flex items-center justify-center gap-1.5 border border-slate-200 transition-all hover:scale-105 text-sm flex-1"
+              >
+                <RotateCcw className="w-4 h-4" />
+                <span>Undo</span>
+              </button>
+            )}
+
+            <button 
+              onClick={handleAddPointMobile}
+              className="bg-brand-primary hover:bg-brand-primary-hover text-white px-4 py-3 rounded-full font-bold shadow-2xl flex items-center justify-center gap-2 text-sm border-2 border-white/20 flex-[2]"
+            >
+              {currentLine.length === 0 ? 'Start Line' : 'Finish Line'}
+            </button>
+          </div>
+
+          {/* Desktop UI */}
           {completedLines.length > 0 || currentLine.length > 0 ? (
-            <div className="pointer-events-auto flex flex-wrap justify-center gap-2 max-w-full">
+            <div className="hidden md:flex pointer-events-auto flex-wrap justify-center gap-2 max-w-full">
               <button 
                 onClick={handleClear}
                 className="bg-white hover:bg-red-50 text-red-600 px-4 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 border border-red-100 transition-all hover:scale-105 text-sm"
