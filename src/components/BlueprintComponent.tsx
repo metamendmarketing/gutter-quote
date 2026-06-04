@@ -553,26 +553,24 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
             {(completedLines.length > 0 || currentLine.length > 0) && (
               <button 
                 onClick={handleClear}
-                className="bg-white hover:bg-red-50 text-red-600 px-3 py-3 rounded-full font-bold shadow-2xl flex items-center justify-center gap-1.5 border border-red-100 transition-all hover:scale-105 text-sm flex-1"
+                className="bg-white hover:bg-red-50 text-red-600 w-12 h-12 shrink-0 rounded-full font-bold shadow-2xl flex items-center justify-center border border-red-100 transition-all hover:scale-105"
               >
-                <Trash2 className="w-4 h-4" />
-                <span>Clear</span>
+                <Trash2 className="w-5 h-5" />
               </button>
             )}
             
             {(completedLines.length > 0 || currentLine.length > 0) && (
               <button 
                 onClick={handleUndo}
-                className="bg-white hover:bg-slate-50 text-slate-700 px-3 py-3 rounded-full font-bold shadow-2xl flex items-center justify-center gap-1.5 border border-slate-200 transition-all hover:scale-105 text-sm flex-1"
+                className="bg-white hover:bg-slate-50 text-slate-700 w-12 h-12 shrink-0 rounded-full font-bold shadow-2xl flex items-center justify-center border border-slate-200 transition-all hover:scale-105"
               >
-                <RotateCcw className="w-4 h-4" />
-                <span>Undo</span>
+                <RotateCcw className="w-5 h-5" />
               </button>
             )}
 
             <button 
               onClick={handleAddPointMobile}
-              className="bg-brand-primary hover:bg-brand-primary-hover text-white px-4 py-3 rounded-full font-bold shadow-2xl flex items-center justify-center gap-2 text-sm border-2 border-white/20 flex-[2]"
+              className="bg-brand-primary hover:bg-brand-primary-hover text-white px-4 py-3.5 rounded-full font-bold shadow-2xl flex items-center justify-center gap-2 text-base border-2 border-white/20 flex-1"
             >
               {currentLine.length === 0 ? 'Start Line' : 'Finish Line'}
             </button>
