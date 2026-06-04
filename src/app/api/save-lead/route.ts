@@ -32,8 +32,9 @@ export async function POST(req: Request) {
       : existingLeadStr || {}
 
     const now = new Date()
-    const dateStr = now.toLocaleDateString()
-    const timeStr = now.toLocaleTimeString()
+    const options: Intl.DateTimeFormatOptions = { timeZone: 'America/New_York' }
+    const dateStr = now.toLocaleDateString('en-US', options)
+    const timeStr = now.toLocaleTimeString('en-US', options) + ' EST'
 
     // Merge with existing lead data (if any), but don't overwrite original date/time if it exists
     const newLead = {

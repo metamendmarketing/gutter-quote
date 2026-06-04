@@ -66,7 +66,7 @@ export default async function LeadsDashboard() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 text-sm uppercase tracking-wider font-bold">
-                    <th className="py-4 px-6">Date & Time</th>
+                    <th className="py-4 px-6 w-1/4">Date and Time (EST)</th>
                     <th className="py-4 px-6">Property Address</th>
                     <th className="py-4 px-6">Email Address</th>
                   </tr>
