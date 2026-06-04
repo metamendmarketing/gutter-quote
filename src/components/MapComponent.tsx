@@ -37,18 +37,33 @@ const MapComponent = memo(function MapComponent({
   useEffect(() => {
     if (!map) return;
     
+    const addPointToDrawing = (lat: number, lng: number) => {
+      if (currentLineRef.current.length === 1) {
+        const newPt = {lat, lng};
+        const finishedLine = [...currentLineRef.current, newPt];
+        setCompletedLines(prev => [...prev, finishedLine]);
+        setCurrentLine([]);
+      } else {
+        setCurrentLine([{lat, lng}]);
+      }
+    };
+
+    // Attach to window so our external button can trigger it
+    (window as any).__addMapPoint = () => {
+      if (!map) return;
+      const center = map.getCenter();
+      if (center) {
+        addPointToDrawing(center.lat(), center.lng());
+      }
+    };
+
     const clickListener = map.addListener('click', (e: google.maps.MapMouseEvent) => {
+      // Disable tap-to-draw on mobile
+      if (typeof window !== 'undefined' && window.innerWidth < 768) {
+        return;
+      }
       if (e.latLng) {
-        const lat = e.latLng.lat();
-        const lng = e.latLng.lng();
-        if (currentLineRef.current.length === 1) {
-          const newPt = {lat, lng};
-          const finishedLine = [...currentLineRef.current, newPt];
-          setCompletedLines(prev => [...prev, finishedLine]);
-          setCurrentLine([]);
-        } else {
-          setCurrentLine([{lat, lng}]);
-        }
+        addPointToDrawing(e.latLng.lat(), e.latLng.lng());
       }
     });
 
@@ -183,6 +198,23 @@ const MapComponent = memo(function MapComponent({
         className="w-full h-full cursor-crosshair"
       />
       
+      {/* Mobile Crosshair Overlay */}
+      <div className="md:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10 w-8 h-8 flex items-center justify-center opacity-80">
+        <div className="absolute w-full h-0.5 bg-brand-primary"></div>
+        <div className="absolute h-full w-0.5 bg-brand-primary"></div>
+        <div className="absolute w-2 h-2 border-2 border-brand-primary rounded-full bg-white/50"></div>
+      </div>
+
+      {/* Mobile Sniper Button */}
+      <div className="md:hidden absolute bottom-24 left-1/2 -translate-x-1/2 pointer-events-none z-30 flex justify-center w-full px-6">
+        <button 
+          onClick={() => (window as any).__addMapPoint && (window as any).__addMapPoint()}
+          className="pointer-events-auto bg-brand-primary hover:bg-brand-primary-hover text-white w-full max-w-sm py-4 rounded-xl font-bold shadow-2xl flex items-center justify-center gap-2 text-lg border-2 border-white/20"
+        >
+          Add Point
+        </button>
+      </div>
+
       {/* Custom Floating UI */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 w-full px-4 pointer-events-none z-50">
         {completedLines.length > 0 || currentLine.length > 0 ? (
