@@ -339,12 +339,12 @@ function HomeContent() {
           </main>
         ) : (
           // --- MAP & TRACING VIEW ---
-          <div className={`flex-1 w-full flex ${appMode === 'manual' ? 'items-center justify-center bg-slate-100 p-4 md:p-8' : 'flex-col-reverse md:flex-row min-h-0'}`}>
+          <div className={`flex-1 w-full flex min-h-0 ${appMode === 'manual' ? 'items-center justify-center bg-slate-100 p-4 md:p-8' : 'flex-col-reverse md:flex-row'}`}>
             
             {/* Sidebar Quote Panel */}
             <div className={
               appMode === 'manual'
-                ? "w-full max-w-2xl bg-white shadow-2xl z-10 flex flex-col rounded-2xl max-h-full border border-slate-200"
+                ? "w-full max-w-2xl bg-white shadow-2xl z-10 flex flex-col min-h-0 rounded-2xl max-h-full border border-slate-200"
                 : `w-full md:w-80 lg:w-96 bg-white border-r md:border-r border-slate-200 shadow-xl z-10 flex flex-col min-h-0 border-t md:border-t-0 transition-all duration-300 ${mobileMapMinimized ? 'flex-1 md:max-h-none' : 'h-[30vh] shrink-0 md:h-auto md:shrink-1 md:max-h-none'}`
             }>
               <div className="bg-white text-brand-secondary p-5 border-b border-slate-200 flex items-center justify-between shrink-0">
