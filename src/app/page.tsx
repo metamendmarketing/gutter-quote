@@ -295,10 +295,10 @@ function HomeContent() {
           </main>
         ) : (
           // --- MAP & TRACING VIEW ---
-          <div className="flex-1 w-full flex flex-col md:flex-row min-h-0">
+          <div className="flex-1 w-full flex flex-col-reverse md:flex-row min-h-0">
             
             {/* Sidebar Quote Panel */}
-            <div className="w-full md:w-80 lg:w-96 bg-white border-r border-slate-200 shadow-xl z-10 flex flex-col">
+            <div className="w-full md:w-80 lg:w-96 bg-white border-r md:border-r border-slate-200 shadow-xl z-10 flex flex-col shrink-0 max-h-[45vh] md:max-h-none border-t md:border-t-0">
               <div className="bg-white text-brand-secondary p-5 border-b border-slate-200 flex items-center justify-between">
                 <div>
                   <h2 className="font-heading text-2xl font-medium uppercase tracking-widest">Your Quote</h2>
