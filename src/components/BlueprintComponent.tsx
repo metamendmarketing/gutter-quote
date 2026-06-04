@@ -167,11 +167,20 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
       ctx.drawImage(offscreenCanvasRef.current, 0, 0, originalSize.current.width, originalSize.current.height)
     }
 
+    // Calculate preview point (mouse on desktop, center screen on mobile)
+    let previewPos = mousePos;
+    if (typeof window !== 'undefined' && window.innerWidth < 768 && containerRef.current) {
+      previewPos = screenToWorld({
+        x: containerRef.current.clientWidth / 2,
+        y: containerRef.current.clientHeight / 2
+      });
+    }
+
     // Draw Calibration Line
     if (calibrationStart && isCalibrating) {
       ctx.beginPath()
       ctx.moveTo(calibrationStart.x, calibrationStart.y)
-      const end = calibrationEnd || (isCalibrating ? mousePos : null)
+      const end = calibrationEnd || (isCalibrating ? previewPos : null)
       if (end) {
         ctx.lineTo(end.x, end.y)
       }
@@ -220,9 +229,13 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
         ctx.lineTo(currentLine[i].x, currentLine[i].y)
       }
       
-      // Preview to mouse
-      if (!isCalibrating && mousePos && !isDragging.current) {
-        ctx.lineTo(mousePos.x, mousePos.y)
+      // Preview to mouse/crosshair
+      if (!isCalibrating && previewPos) {
+        if (typeof window !== 'undefined' && window.innerWidth < 768) {
+          ctx.lineTo(previewPos.x, previewPos.y)
+        } else if (!isDragging.current) {
+          ctx.lineTo(previewPos.x, previewPos.y)
+        }
       }
 
       ctx.strokeStyle = '#8f001e' // Noland's Darker Red (active line)

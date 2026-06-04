@@ -68,11 +68,24 @@ const MapComponent = memo(function MapComponent({
     });
 
     const moveListener = map.addListener('mousemove', (e: google.maps.MapMouseEvent) => {
+      if (typeof window !== 'undefined' && window.innerWidth < 768) return;
       if (e.latLng && currentPolylineRef.current && currentLineRef.current.length > 0) {
         const lat = e.latLng.lat();
         const lng = e.latLng.lng();
         const previewPath = [...currentLineRef.current, {lat, lng}];
         currentPolylineRef.current.setPath(previewPath);
+      }
+    });
+
+    const centerListener = map.addListener('center_changed', () => {
+      if (typeof window !== 'undefined' && window.innerWidth < 768) {
+        if (currentPolylineRef.current && currentLineRef.current.length > 0) {
+          const center = map.getCenter();
+          if (center) {
+            const previewPath = [...currentLineRef.current, {lat: center.lat(), lng: center.lng()}];
+            currentPolylineRef.current.setPath(previewPath);
+          }
+        }
       }
     });
 
@@ -85,6 +98,7 @@ const MapComponent = memo(function MapComponent({
     return () => {
       google.maps.event.removeListener(clickListener);
       google.maps.event.removeListener(moveListener);
+      google.maps.event.removeListener(centerListener);
       google.maps.event.removeListener(mouseOutListener);
     }
   }, [map]);
