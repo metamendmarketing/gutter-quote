@@ -304,7 +304,7 @@ function HomeContent() {
           <div className="flex-1 w-full flex flex-col-reverse md:flex-row min-h-0">
             
             {/* Sidebar Quote Panel */}
-            <div className={`w-full md:w-80 lg:w-96 bg-white border-r md:border-r border-slate-200 shadow-xl z-10 flex flex-col shrink-0 border-t md:border-t-0 transition-all duration-300 ${mobileMapMinimized ? 'flex-1 md:max-h-none overflow-y-auto' : 'max-h-[25vh] md:max-h-none'}`}>
+            <div className={`w-full md:w-80 lg:w-96 bg-white border-r md:border-r border-slate-200 shadow-xl z-10 flex flex-col min-h-0 border-t md:border-t-0 transition-all duration-300 ${mobileMapMinimized ? 'flex-1 md:max-h-none' : 'h-[30vh] shrink-0 md:h-auto md:shrink-1 md:max-h-none'}`}>
               <div className="bg-white text-brand-secondary p-5 border-b border-slate-200 flex items-center justify-between">
                 <div>
                   <h2 className="font-heading text-2xl font-medium uppercase tracking-widest">Your Quote</h2>
@@ -427,7 +427,7 @@ function HomeContent() {
             </div>
 
             {/* Map / Blueprint Area */}
-            <div className={`relative bg-slate-200 flex flex-col transition-all duration-300 ${mobileMapMinimized ? 'h-[25vh] md:h-auto md:flex-1 shrink-0' : 'flex-1'}`}>
+            <div className={`relative bg-slate-200 flex flex-col min-h-0 transition-all duration-300 ${mobileMapMinimized ? 'h-[25vh] md:h-auto md:flex-1 shrink-0' : 'flex-1'}`}>
               
               <div className="md:hidden absolute top-4 right-4 z-[60]">
                 {mobileMapMinimized ? (
