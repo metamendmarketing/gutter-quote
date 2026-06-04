@@ -465,7 +465,7 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
         canvas.removeEventListener('wheel', preventWheel)
       }
     }
-  }, [])
+  }, [file])
 
   if (!file) {
     return (
@@ -483,7 +483,7 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
   }
 
   return (
-    <div className="w-full h-full flex flex-col bg-slate-100 relative overflow-hidden" ref={containerRef}>
+    <div className="w-full h-full flex flex-col bg-slate-100 relative overflow-hidden overscroll-none" ref={containerRef}>
       
       {/* Top Toolbar */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white shadow-xl rounded-xl p-2 flex items-center gap-2 z-20 border border-slate-200">
