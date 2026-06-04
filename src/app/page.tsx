@@ -309,8 +309,8 @@ function HomeContent() {
                 </button>
               </div>
 
-              <div className="p-5 flex-1 flex flex-col overflow-hidden">
-                <div className="bg-slate-50 border border-slate-200 p-5 rounded-xl text-center relative overflow-hidden mb-5 text-brand-secondary shadow-sm">
+              <div className="p-5 flex-1 overflow-y-auto flex flex-col scrollbar-thin scrollbar-thumb-slate-200">
+                <div className="bg-slate-50 border border-slate-200 p-5 rounded-xl text-center relative overflow-hidden mb-5 text-brand-secondary shadow-sm shrink-0">
                   <Calculator className="w-32 h-32 absolute -right-8 -bottom-8 text-slate-200" />
                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1 relative z-10">Estimated Price</p>
                   <h3 className="font-heading text-5xl md:text-6xl font-bold relative z-10 tracking-wide text-brand-primary">
@@ -324,25 +324,24 @@ function HomeContent() {
                   </div>
                 </div>
 
-                <div className="flex-1 flex flex-col overflow-hidden min-h-0">
-                  <div className={`bg-slate-50 p-5 rounded-xl border border-slate-200 shrink-0 ${perimeter === 0 ? 'block' : 'hidden'}`}>
-                    <h4 className="font-heading text-xl font-medium tracking-wide text-brand-secondary flex items-center gap-2 mb-2">
-                      <span className="flex items-center justify-center w-5 h-5 rounded bg-brand-primary text-white text-xs">1</span>
-                      Trace your roof
-                    </h4>
-                    <p className="text-slate-600 text-sm leading-relaxed mb-5 font-body">
-                      Click on the map to draw lines along your roof's edge.
-                    </p>
-                    <h4 className="font-heading text-xl font-medium tracking-wide text-brand-secondary flex items-center gap-2 mb-2">
-                      <span className="flex items-center justify-center w-5 h-5 rounded bg-brand-primary text-white text-xs">2</span>
-                      See your instant quote
-                    </h4>
-                    <p className="text-slate-600 text-sm leading-relaxed font-body">
-                      As you draw, the perimeter and price will update automatically above.
-                    </p>
-                  </div>
-                  
-                  <div className={`space-y-4 overflow-y-auto pr-2 pb-4 scrollbar-thin scrollbar-thumb-slate-200 font-body flex-1 ${perimeter > 0 ? 'block' : 'hidden'}`}>
+                <div className={`bg-slate-50 p-5 rounded-xl border border-slate-200 shrink-0 mb-4 ${perimeter === 0 ? 'block' : 'hidden'}`}>
+                  <h4 className="font-heading text-xl font-medium tracking-wide text-brand-secondary flex items-center gap-2 mb-2">
+                    <span className="flex items-center justify-center w-5 h-5 rounded bg-brand-primary text-white text-xs">1</span>
+                    Trace your roof
+                  </h4>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-5 font-body">
+                    Click on the map to draw lines along your roof's edge.
+                  </p>
+                  <h4 className="font-heading text-xl font-medium tracking-wide text-brand-secondary flex items-center gap-2 mb-2">
+                    <span className="flex items-center justify-center w-5 h-5 rounded bg-brand-primary text-white text-xs">2</span>
+                    See your instant quote
+                  </h4>
+                  <p className="text-slate-600 text-sm leading-relaxed font-body">
+                    As you draw, the perimeter and price will update automatically above.
+                  </p>
+                </div>
+                
+                <div className={`space-y-4 font-body pb-4 shrink-0 ${perimeter > 0 ? 'block' : 'hidden'}`}>
                       <div>
                         <label className="block text-xs font-bold text-brand-secondary mb-2 uppercase tracking-wide">Number of Stories</label>
                         <div className="flex gap-2">
@@ -391,7 +390,6 @@ function HomeContent() {
                       </div>
 
                     </div>
-                  </div>
                 <div className="mt-4 flex flex-col gap-3 shrink-0 pt-2 border-t border-slate-100">
                   <button 
                     disabled={perimeter === 0}
