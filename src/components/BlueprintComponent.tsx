@@ -549,14 +549,14 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
 
   if (!file) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-slate-100 p-6">
-        <label className="border-4 border-dashed border-slate-300 rounded-3xl p-12 text-center cursor-pointer hover:border-brand-primary hover:bg-brand-primary/5 transition-all max-w-lg w-full">
-          <UploadCloud className="w-20 h-20 text-brand-primary mx-auto mb-6" />
-          <h3 className="text-2xl font-heading font-bold text-brand-secondary uppercase tracking-widest mb-4">Upload Blueprint</h3>
-          <p className="text-slate-500 mb-8">Select a PDF or Image of the property blueprint/floorplan to begin tracing.</p>
-          <div className="bg-brand-primary text-white font-bold py-3 px-8 rounded-lg inline-block uppercase tracking-wide">Select File</div>
+      <div className="w-full h-full flex flex-col justify-center bg-slate-100 p-4 md:p-6 overflow-y-auto">
+        <label className="border-4 border-dashed border-slate-300 rounded-2xl md:rounded-3xl p-6 md:p-12 text-center cursor-pointer hover:border-brand-primary hover:bg-brand-primary/5 transition-all max-w-lg w-full my-auto mx-auto shrink-0">
+          <UploadCloud className="w-12 h-12 md:w-20 md:h-20 text-brand-primary mx-auto mb-4 md:mb-6" />
+          <h3 className="text-lg md:text-2xl font-heading font-bold text-brand-secondary uppercase tracking-widest mb-2 md:mb-4">Upload Blueprint</h3>
+          <p className="text-xs md:text-base text-slate-500 mb-6 md:mb-8">Select a PDF or Image of the property blueprint/floorplan to begin tracing.</p>
+          <div className="bg-brand-primary text-white font-bold py-2.5 px-6 md:py-3 md:px-8 rounded-lg inline-block uppercase tracking-wide text-xs md:text-base">Select File</div>
           <input type="file" accept=".pdf,image/png,image/jpeg" onChange={handleFileUpload} className="hidden" />
-          {error && <p className="text-red-500 font-bold mt-4">{error}</p>}
+          {error && <p className="text-red-500 font-bold mt-4 text-sm md:text-base">{error}</p>}
         </label>
       </div>
     )
