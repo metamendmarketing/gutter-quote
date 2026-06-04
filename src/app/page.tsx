@@ -352,16 +352,26 @@ function HomeContent() {
                   <h2 className="font-heading text-2xl font-medium uppercase tracking-widest">Your Quote</h2>
                   <p className="text-xs text-slate-500 font-medium truncate max-w-[200px]" title={address}>{address || 'Manual Entry'}</p>
                 </div>
-                <button onClick={() => {
-                  if (appMode === 'manual') {
-                    setAppMode('map')
-                    setPerimeter(0)
-                  } else {
-                    setMapCenter(null)
-                  }
-                }} className="text-xs text-slate-600 hover:text-brand-primary font-bold bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors">
-                  {appMode === 'manual' ? 'Start Over' : 'Edit'}
-                </button>
+                <div className="flex items-center gap-2">
+                  {mobileMapMinimized && appMode !== 'manual' && (
+                    <button 
+                      onClick={() => setMobileMapMinimized(false)}
+                      className="md:hidden text-xs text-brand-primary font-bold bg-brand-primary/10 hover:bg-brand-primary/20 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
+                    >
+                      <Maximize2 className="w-3 h-3" /> Map
+                    </button>
+                  )}
+                  <button onClick={() => {
+                    if (appMode === 'manual') {
+                      setAppMode('map')
+                      setPerimeter(0)
+                    } else {
+                      setMapCenter(null)
+                    }
+                  }} className="text-xs text-slate-600 hover:text-brand-primary font-bold bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors">
+                    {appMode === 'manual' ? 'Start Over' : 'Edit'}
+                  </button>
+                </div>
               </div>
 
               <div className="p-5 flex-1 overflow-y-auto flex flex-col scrollbar-thin scrollbar-thumb-slate-200">
@@ -490,17 +500,10 @@ function HomeContent() {
             </div>
 
             {appMode !== 'manual' && (
-              <div className={`relative bg-slate-200 flex flex-col min-h-0 transition-all duration-300 ${mobileMapMinimized ? 'h-[25vh] md:h-auto md:flex-1 shrink-0' : 'flex-1'}`}>
+              <div className={`relative bg-slate-200 flex flex-col min-h-0 transition-all duration-300 ${mobileMapMinimized ? 'hidden md:flex md:h-auto md:flex-1 shrink-0' : 'flex-1'}`}>
                 
                 <div className="md:hidden absolute top-4 right-4 z-[60]">
-                  {mobileMapMinimized ? (
-                    <button 
-                      onClick={() => setMobileMapMinimized(false)}
-                      className="bg-white/90 backdrop-blur text-brand-secondary px-4 py-2 rounded-full font-bold shadow-lg border border-slate-200 text-sm flex items-center gap-2"
-                    >
-                      <Maximize2 className="w-4 h-4" /> Expand Map
-                    </button>
-                  ) : (
+                  {!mobileMapMinimized && (
                     <button 
                       onClick={() => setMobileMapMinimized(true)}
                       className="bg-brand-primary text-white px-4 py-2 rounded-full font-bold shadow-lg border border-brand-primary-hover text-sm flex items-center gap-2"
