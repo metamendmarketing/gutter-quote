@@ -96,6 +96,11 @@ const AddressAutocomplete = ({
       type="text" 
       value={address}
       onChange={(e) => setAddress(e.target.value)}
+      onFocus={(e) => {
+        setTimeout(() => {
+          e.target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 300)
+      }}
       className="w-full bg-white border border-slate-300 py-3 pl-11 pr-4 text-base font-medium text-brand-secondary placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary rounded-sm"
       disabled={isGeocoding}
     />
@@ -236,7 +241,7 @@ function HomeContent() {
           <main className="flex-1 w-full max-w-5xl mx-auto px-4 md:px-6 py-8 md:py-16 relative z-10 flex flex-col md:flex-row items-center md:items-stretch">
             
             {/* Left Red Block */}
-            <div className="w-full md:w-[45%] bg-brand-primary p-8 md:p-12 text-white relative overflow-hidden flex flex-col justify-center min-h-[400px]">
+            <div className="w-full md:w-[45%] bg-brand-primary p-8 md:p-12 text-white relative overflow-hidden flex flex-col justify-center min-h-[250px] md:min-h-[400px]">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 relative z-10">Get Your Free Estimate</h2>
               <p className="text-lg text-white/90 leading-relaxed relative z-10 font-medium">
                 Let's get started. Let us know what Noland's Roofing can do for you.
