@@ -523,7 +523,7 @@ function HomeContent() {
               <div className={`relative bg-slate-200 flex flex-col min-h-0 transition-all duration-300 ${mobileMapMinimized ? 'hidden md:flex md:h-auto md:flex-1 shrink-0' : 'flex-1'}`}>
                 
                 <div className="md:hidden absolute top-4 right-4 z-[60]">
-                  {!mobileMapMinimized && (
+                  {!mobileMapMinimized && perimeter > 0 && (
                     <button 
                       onClick={() => setMobileMapMinimized(true)}
                       className="bg-brand-primary text-white px-4 py-2 rounded-full font-bold shadow-lg border border-brand-primary-hover text-sm flex items-center gap-2"
