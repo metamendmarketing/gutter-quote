@@ -315,7 +315,7 @@ function HomeContent() {
                         }
                       }
                     }}
-                    className="flex-1 border border-slate-300 py-3 px-4 text-base font-medium text-brand-secondary placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary rounded-sm"
+                    className="flex-1 min-w-0 w-full border border-slate-300 py-3 px-4 text-base font-medium text-brand-secondary placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary rounded-sm"
                   />
                   <button 
                     type="button"
