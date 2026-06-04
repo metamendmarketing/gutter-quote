@@ -116,7 +116,8 @@ export default function Home() {
 }
 
 function HomeContent() {
-  const [appMode, setAppMode] = useState<'map' | 'blueprint'>('map')
+  const [appMode, setAppMode] = useState<'map' | 'blueprint' | 'manual'>('map')
+  const [manualPerimeterInput, setManualPerimeterInput] = useState<string>('')
   const [address, setAddress] = useState('')
   const [mapCenter, setMapCenter] = useState<{lat: number, lng: number} | null>(null)
   const [perimeter, setPerimeter] = useState<number>(0) // in feet
@@ -291,27 +292,75 @@ function HomeContent() {
 
               <button 
                 onClick={() => setAppMode('blueprint')}
-                className="w-full bg-slate-50 border border-slate-200 hover:border-slate-300 hover:bg-slate-100 text-slate-600 py-3 rounded-sm font-medium transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-slate-50 border border-slate-200 hover:border-slate-300 hover:bg-slate-100 text-slate-600 py-3 rounded-sm font-medium transition-colors flex items-center justify-center gap-2 mb-6"
               >
                 Upload a PDF / Blueprint
               </button>
+              
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-bold text-slate-700">Already know your gutter length?</label>
+                <div className="flex gap-2">
+                  <input 
+                    type="number"
+                    placeholder="Total feet"
+                    value={manualPerimeterInput}
+                    onChange={(e) => setManualPerimeterInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault()
+                        const feet = parseFloat(manualPerimeterInput)
+                        if (feet > 0) {
+                          setPerimeter(feet)
+                          setAppMode('manual')
+                        }
+                      }
+                    }}
+                    className="flex-1 border border-slate-300 py-3 px-4 text-base font-medium text-brand-secondary placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary rounded-sm"
+                  />
+                  <button 
+                    type="button"
+                    onClick={() => {
+                      const feet = parseFloat(manualPerimeterInput);
+                      if (feet > 0) {
+                        setPerimeter(feet);
+                        setAppMode('manual');
+                      }
+                    }}
+                    disabled={!manualPerimeterInput || parseFloat(manualPerimeterInput) <= 0}
+                    className="bg-slate-800 hover:bg-slate-900 text-white px-6 py-2.5 rounded-sm font-medium transition-colors disabled:opacity-50"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
               
               {error && <p className="text-red-500 mt-4 font-bold text-sm text-center">{error}</p>}
             </div>
           </main>
         ) : (
           // --- MAP & TRACING VIEW ---
-          <div className="flex-1 w-full flex flex-col-reverse md:flex-row min-h-0">
+          <div className={`flex-1 w-full flex ${appMode === 'manual' ? 'items-center justify-center bg-slate-100 p-4 md:p-8' : 'flex-col-reverse md:flex-row min-h-0'}`}>
             
             {/* Sidebar Quote Panel */}
-            <div className={`w-full md:w-80 lg:w-96 bg-white border-r md:border-r border-slate-200 shadow-xl z-10 flex flex-col min-h-0 border-t md:border-t-0 transition-all duration-300 ${mobileMapMinimized ? 'flex-1 md:max-h-none' : 'h-[30vh] shrink-0 md:h-auto md:shrink-1 md:max-h-none'}`}>
-              <div className="bg-white text-brand-secondary p-5 border-b border-slate-200 flex items-center justify-between">
+            <div className={
+              appMode === 'manual'
+                ? "w-full max-w-2xl bg-white shadow-2xl z-10 flex flex-col rounded-2xl max-h-full border border-slate-200"
+                : `w-full md:w-80 lg:w-96 bg-white border-r md:border-r border-slate-200 shadow-xl z-10 flex flex-col min-h-0 border-t md:border-t-0 transition-all duration-300 ${mobileMapMinimized ? 'flex-1 md:max-h-none' : 'h-[30vh] shrink-0 md:h-auto md:shrink-1 md:max-h-none'}`
+            }>
+              <div className="bg-white text-brand-secondary p-5 border-b border-slate-200 flex items-center justify-between shrink-0">
                 <div>
                   <h2 className="font-heading text-2xl font-medium uppercase tracking-widest">Your Quote</h2>
-                  <p className="text-xs text-slate-500 font-medium truncate max-w-[200px]" title={address}>{address}</p>
+                  <p className="text-xs text-slate-500 font-medium truncate max-w-[200px]" title={address}>{address || 'Manual Entry'}</p>
                 </div>
-                <button onClick={() => setMapCenter(null)} className="text-xs text-slate-600 hover:text-brand-primary font-bold bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors">
-                  Edit
+                <button onClick={() => {
+                  if (appMode === 'manual') {
+                    setAppMode('map')
+                    setPerimeter(0)
+                  } else {
+                    setMapCenter(null)
+                  }
+                }} className="text-xs text-slate-600 hover:text-brand-primary font-bold bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors">
+                  {appMode === 'manual' ? 'Start Over' : 'Edit'}
                 </button>
               </div>
 
@@ -440,47 +489,48 @@ function HomeContent() {
               </div>
             </div>
 
-            {/* Map / Blueprint Area */}
-            <div className={`relative bg-slate-200 flex flex-col min-h-0 transition-all duration-300 ${mobileMapMinimized ? 'h-[25vh] md:h-auto md:flex-1 shrink-0' : 'flex-1'}`}>
-              
-              <div className="md:hidden absolute top-4 right-4 z-[60]">
-                {mobileMapMinimized ? (
-                  <button 
-                    onClick={() => setMobileMapMinimized(false)}
-                    className="bg-white/90 backdrop-blur text-brand-secondary px-4 py-2 rounded-full font-bold shadow-lg border border-slate-200 text-sm flex items-center gap-2"
-                  >
-                    <Maximize2 className="w-4 h-4" /> Expand Map
-                  </button>
-                ) : (
-                  <button 
-                    onClick={() => setMobileMapMinimized(true)}
-                    className="bg-brand-primary text-white px-4 py-2 rounded-full font-bold shadow-lg border border-brand-primary-hover text-sm flex items-center gap-2"
-                  >
-                    <Check className="w-4 h-4" /> Finish Drawing
-                  </button>
-                )}
+            {appMode !== 'manual' && (
+              <div className={`relative bg-slate-200 flex flex-col min-h-0 transition-all duration-300 ${mobileMapMinimized ? 'h-[25vh] md:h-auto md:flex-1 shrink-0' : 'flex-1'}`}>
+                
+                <div className="md:hidden absolute top-4 right-4 z-[60]">
+                  {mobileMapMinimized ? (
+                    <button 
+                      onClick={() => setMobileMapMinimized(false)}
+                      className="bg-white/90 backdrop-blur text-brand-secondary px-4 py-2 rounded-full font-bold shadow-lg border border-slate-200 text-sm flex items-center gap-2"
+                    >
+                      <Maximize2 className="w-4 h-4" /> Expand Map
+                    </button>
+                  ) : (
+                    <button 
+                      onClick={() => setMobileMapMinimized(true)}
+                      className="bg-brand-primary text-white px-4 py-2 rounded-full font-bold shadow-lg border border-brand-primary-hover text-sm flex items-center gap-2"
+                    >
+                      <Check className="w-4 h-4" /> Finish Drawing
+                    </button>
+                  )}
+                </div>
+                
+  
+  
+                <div className={`w-full h-full ${appMode === 'map' ? 'block' : 'hidden'}`}>
+                  <MapComponent 
+                    center={mapCenter!} 
+                    onPerimeterChange={setPerimeter} 
+                    completedLines={mapCompletedLines}
+                    setCompletedLines={setMapCompletedLines}
+                    currentLine={mapCurrentLine}
+                    setCurrentLine={setMapCurrentLine}
+                    hasCentered={mapHasCentered}
+                    setHasCentered={setMapHasCentered}
+                  />
+                </div>
+                <div className={`w-full h-full ${appMode === 'blueprint' ? 'block' : 'hidden'}`}>
+                  <BlueprintComponent 
+                    onPerimeterChange={setPerimeter} 
+                  />
+                </div>
               </div>
-              
-
-
-              <div className={`w-full h-full ${appMode === 'map' ? 'block' : 'hidden'}`}>
-                <MapComponent 
-                  center={mapCenter!} 
-                  onPerimeterChange={setPerimeter} 
-                  completedLines={mapCompletedLines}
-                  setCompletedLines={setMapCompletedLines}
-                  currentLine={mapCurrentLine}
-                  setCurrentLine={setMapCurrentLine}
-                  hasCentered={mapHasCentered}
-                  setHasCentered={setMapHasCentered}
-                />
-              </div>
-              <div className={`w-full h-full ${appMode === 'blueprint' ? 'block' : 'hidden'}`}>
-                <BlueprintComponent 
-                  onPerimeterChange={setPerimeter} 
-                />
-              </div>
-            </div>
+            )}
 
           </div>
         )}
