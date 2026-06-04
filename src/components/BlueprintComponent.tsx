@@ -129,7 +129,7 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
       } else {
         throw new Error("Unsupported file format. Please upload a PDF, PNG, or JPG.")
       }
-      setIsCalibrating(false)
+      setIsCalibrating(true)
     } catch (err: any) {
       setError(err.message || 'Error processing file')
       setFile(null)
