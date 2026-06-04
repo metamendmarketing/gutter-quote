@@ -233,7 +233,7 @@ function HomeContent() {
   }
 
   return (
-    <div className={`bg-slate-50 text-slate-900 selection:bg-brand-primary/30 flex flex-col ${(!mapCenter && appMode === 'map') ? 'min-h-screen' : 'h-screen overflow-hidden'}`}>
+    <div className={`bg-slate-50 text-slate-900 selection:bg-brand-primary/30 flex flex-col ${(!mapCenter && appMode === 'map') ? 'min-h-[100dvh]' : 'h-[100dvh] overflow-hidden'}`}>
       <BrandHeader />
       
       
