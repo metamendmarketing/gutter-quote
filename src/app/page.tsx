@@ -361,16 +361,14 @@ function HomeContent() {
                       <Maximize2 className="w-3 h-3" /> Map
                     </button>
                   )}
-                  <button onClick={() => {
-                    if (appMode === 'manual') {
+                  {appMode === 'manual' && (
+                    <button onClick={() => {
                       setAppMode('map')
                       setPerimeter(0)
-                    } else {
-                      setMapCenter(null)
-                    }
-                  }} className="text-xs text-slate-600 hover:text-brand-primary font-bold bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors">
-                    {appMode === 'manual' ? 'Start Over' : 'Edit'}
-                  </button>
+                    }} className="text-xs text-slate-600 hover:text-brand-primary font-bold bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors">
+                      Start Over
+                    </button>
+                  )}
                 </div>
               </div>
 
