@@ -12,7 +12,8 @@ const MapComponent = memo(function MapComponent({
   currentLine,
   setCurrentLine,
   hasCentered,
-  setHasCentered
+  setHasCentered,
+  onFinishDrawing
 }: { 
   center: {lat: number, lng: number},
   onPerimeterChange: (perimeter: number) => void,
@@ -21,7 +22,8 @@ const MapComponent = memo(function MapComponent({
   currentLine: google.maps.LatLngLiteral[],
   setCurrentLine: React.Dispatch<React.SetStateAction<google.maps.LatLngLiteral[]>>,
   hasCentered: boolean,
-  setHasCentered: React.Dispatch<React.SetStateAction<boolean>>
+  setHasCentered: React.Dispatch<React.SetStateAction<boolean>>,
+  onFinishDrawing?: () => void
 }) {
   const map = useMap('main-satellite-map')
   const geometryLib = useMapsLibrary('geometry')
@@ -248,6 +250,15 @@ const MapComponent = memo(function MapComponent({
           >
             {currentLine.length === 0 ? 'Start Line' : 'Finish Line'}
           </button>
+          
+          {onFinishDrawing && (completedLines.length > 0 || currentLine.length > 0) && (
+            <button 
+              onClick={onFinishDrawing}
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-3.5 rounded-full font-bold shadow-lg shadow-green-500/50 border border-green-500 text-sm flex items-center gap-2 whitespace-nowrap shrink-0"
+            >
+              <Check className="w-4 h-4" /> Finish
+            </button>
+          )}
         </div>
 
         {/* Desktop UI */}

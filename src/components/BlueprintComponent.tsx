@@ -11,7 +11,13 @@ if (typeof window !== 'undefined') {
 
 type Point = { x: number, y: number }
 
-export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterChange: (p: number) => void }) {
+export default function BlueprintComponent({ 
+  onPerimeterChange,
+  onFinishDrawing
+}: { 
+  onPerimeterChange: (p: number) => void,
+  onFinishDrawing?: () => void
+}) {
   const [file, setFile] = useState<File | null>(null)
   const [pdfPage, setPdfPage] = useState<any>(null)
   const [imageObj, setImageObj] = useState<HTMLImageElement | null>(null)
@@ -625,6 +631,15 @@ export default function BlueprintComponent({ onPerimeterChange }: { onPerimeterC
             >
               {currentLine.length === 0 ? 'Start Line' : 'Finish Line'}
             </button>
+            
+            {onFinishDrawing && (completedLines.length > 0 || currentLine.length > 0) && (
+              <button 
+                onClick={onFinishDrawing}
+                className="bg-green-600 hover:bg-green-700 text-white px-4 py-3.5 rounded-full font-bold shadow-lg shadow-green-500/50 border border-green-500 text-sm flex items-center gap-2 whitespace-nowrap shrink-0"
+              >
+                <Check className="w-4 h-4" /> Finish
+              </button>
+            )}
           </div>
 
           {/* Desktop UI */}

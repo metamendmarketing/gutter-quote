@@ -523,18 +523,6 @@ function HomeContent() {
             {appMode !== 'manual' && (
               <div className={`relative bg-slate-200 flex flex-col min-h-0 transition-all duration-300 ${mobileMapMinimized ? 'hidden md:flex md:h-auto md:flex-1 shrink-0' : 'flex-1'}`}>
                 
-                <div className="md:hidden absolute top-4 right-4 z-[60]">
-                  {!mobileMapMinimized && perimeter > 0 && (
-                    <button 
-                      onClick={() => setMobileMapMinimized(true)}
-                      className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full font-bold shadow-lg shadow-green-500/50 border border-green-500 text-sm flex items-center gap-2 animate-pulse"
-                    >
-                      <Check className="w-4 h-4" /> Finish Drawing
-                    </button>
-                  )}
-                </div>
-                
-  
   
                 <div className={`w-full h-full ${appMode === 'map' ? 'block' : 'hidden'}`}>
                   <MapComponent 
@@ -546,11 +534,13 @@ function HomeContent() {
                     setCurrentLine={setMapCurrentLine}
                     hasCentered={mapHasCentered}
                     setHasCentered={setMapHasCentered}
+                    onFinishDrawing={() => setMobileMapMinimized(true)}
                   />
                 </div>
                 <div className={`w-full h-full ${appMode === 'blueprint' ? 'block' : 'hidden'}`}>
                   <BlueprintComponent 
                     onPerimeterChange={setPerimeter} 
+                    onFinishDrawing={() => setMobileMapMinimized(true)}
                   />
                 </div>
               </div>
