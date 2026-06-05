@@ -527,7 +527,7 @@ function HomeContent() {
                   {!mobileMapMinimized && perimeter > 0 && (
                     <button 
                       onClick={() => setMobileMapMinimized(true)}
-                      className="bg-brand-primary text-white px-4 py-2 rounded-full font-bold shadow-lg border border-brand-primary-hover text-sm flex items-center gap-2"
+                      className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full font-bold shadow-lg shadow-green-500/50 border border-green-500 text-sm flex items-center gap-2 animate-pulse"
                     >
                       <Check className="w-4 h-4" /> Finish Drawing
                     </button>
