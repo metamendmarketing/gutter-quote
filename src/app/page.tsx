@@ -345,7 +345,7 @@ function HomeContent() {
             <div className={
               appMode === 'manual'
                 ? "w-full max-w-4xl bg-white shadow-2xl z-10 flex flex-col min-h-0 rounded-2xl max-h-full border border-slate-200"
-                : `w-full md:w-80 lg:w-96 bg-white border-r md:border-r border-slate-200 shadow-xl z-10 flex flex-col min-h-0 border-t md:border-t-0 transition-all duration-300 ${mobileMapMinimized ? 'flex-1 md:max-h-none' : 'h-[30vh] shrink-0 md:h-auto md:shrink-1 md:max-h-none'}`
+                : `w-full md:w-80 lg:w-96 bg-white border-r md:border-r border-slate-200 shadow-xl z-10 flex flex-col min-h-0 border-t md:border-t-0 transition-all duration-300 ${mobileMapMinimized ? 'flex-1 md:max-h-none' : 'hidden md:flex md:h-auto md:shrink-1 md:max-h-none'}`
             }>
               <div className="bg-white text-brand-secondary p-5 border-b border-slate-200 flex items-center justify-between shrink-0">
                 <div>
