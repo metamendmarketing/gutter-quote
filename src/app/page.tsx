@@ -454,17 +454,18 @@ function HomeContent() {
                         </div>
                       </div>
 
+                      <div className="pt-2 mt-4 border-t border-slate-100">
+                        <button 
+                          disabled={perimeter === 0}
+                          onClick={() => setIsServicesModalOpen(true)}
+                          className="w-full bg-white hover:bg-slate-50 text-brand-secondary border-2 border-slate-200 px-5 py-3 rounded-lg font-bold text-sm uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                        >
+                          Add another service to your quote
+                        </button>
+                      </div>
                     </div>
-                <div className={`flex flex-col gap-3 shrink-0 ${appMode === 'manual' ? 'mt-4 pt-2 border-t border-slate-100 md:col-start-1 md:row-start-2 md:mt-0 md:border-t-0 md:pt-0' : 'mt-4 pt-2 border-t border-slate-100'}`}>
-                  <button 
-                    disabled={perimeter === 0}
-                    onClick={() => setIsServicesModalOpen(true)}
-                    className="w-full bg-white hover:bg-slate-50 text-brand-secondary border-2 border-slate-200 px-5 py-3 rounded-lg font-bold text-sm uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
-                  >
-                    Add another service to your quote
-                  </button>
-                  
-                  <div className="hidden md:block space-y-2 mt-2">
+                <div className={`flex flex-col gap-3 shrink-0 ${appMode === 'manual' ? 'md:col-start-1 md:row-start-2' : 'mt-4 pt-2 border-t border-slate-100'}`}>
+                  <div className="hidden md:block space-y-2">
                     <input 
                       type="email" 
                       value={email}
