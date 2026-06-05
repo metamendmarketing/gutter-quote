@@ -344,7 +344,7 @@ function HomeContent() {
             {/* Sidebar Quote Panel */}
             <div className={
               appMode === 'manual'
-                ? "w-full max-w-2xl bg-white shadow-2xl z-10 flex flex-col min-h-0 rounded-2xl max-h-full border border-slate-200"
+                ? "w-full max-w-4xl bg-white shadow-2xl z-10 flex flex-col min-h-0 rounded-2xl max-h-full border border-slate-200"
                 : `w-full md:w-80 lg:w-96 bg-white border-r md:border-r border-slate-200 shadow-xl z-10 flex flex-col min-h-0 border-t md:border-t-0 transition-all duration-300 ${mobileMapMinimized ? 'flex-1 md:max-h-none' : 'h-[30vh] shrink-0 md:h-auto md:shrink-1 md:max-h-none'}`
             }>
               <div className="bg-white text-brand-secondary p-5 border-b border-slate-200 flex items-center justify-between shrink-0">
@@ -374,8 +374,8 @@ function HomeContent() {
                 </div>
               </div>
 
-              <div className="p-5 flex-1 overflow-y-auto flex flex-col scrollbar-thin scrollbar-thumb-slate-200">
-                <div className="hidden md:block bg-slate-50 border border-slate-200 p-5 rounded-xl text-center relative overflow-hidden mb-5 text-brand-secondary shadow-sm shrink-0">
+              <div className={`p-5 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 ${appMode === 'manual' ? 'flex flex-col md:grid md:grid-cols-2 md:gap-x-8 md:content-start' : 'flex flex-col'}`}>
+                <div className={`hidden md:block bg-slate-50 border border-slate-200 p-5 rounded-xl text-center relative overflow-hidden mb-5 text-brand-secondary shadow-sm shrink-0 ${appMode === 'manual' ? 'md:col-start-1 md:row-start-1 md:mb-6' : ''}`}>
                   <Calculator className="w-32 h-32 absolute -right-8 -bottom-8 text-slate-200" />
                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1 relative z-10">Estimated Price</p>
                   <h3 className="font-heading text-5xl md:text-6xl font-bold relative z-10 tracking-wide text-brand-primary">
@@ -406,7 +406,7 @@ function HomeContent() {
                   </p>
                 </div>
                 
-                <div className={`space-y-4 font-body pb-4 shrink-0 ${perimeter > 0 ? 'block' : 'hidden'}`}>
+                <div className={`space-y-4 font-body pb-4 shrink-0 ${appMode === 'manual' ? 'md:col-start-2 md:row-start-1 md:row-span-2' : ''} ${perimeter > 0 ? 'block' : 'hidden'}`}>
                       <div>
                         <label className="block text-xs font-bold text-brand-secondary mb-2 uppercase tracking-wide">Number of Stories</label>
                         <div className="flex gap-2">
@@ -455,7 +455,7 @@ function HomeContent() {
                       </div>
 
                     </div>
-                <div className="mt-4 flex flex-col gap-3 shrink-0 pt-2 border-t border-slate-100">
+                <div className={`flex flex-col gap-3 shrink-0 ${appMode === 'manual' ? 'mt-4 pt-2 border-t border-slate-100 md:col-start-1 md:row-start-2 md:mt-0 md:border-t-0 md:pt-0' : 'mt-4 pt-2 border-t border-slate-100'}`}>
                   <button 
                     disabled={perimeter === 0}
                     onClick={() => setIsServicesModalOpen(true)}
