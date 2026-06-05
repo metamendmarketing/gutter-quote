@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef, memo } from 'react'
 import { Map, useMap, useMapsLibrary } from '@vis.gl/react-google-maps'
-import { Trash2, MousePointerClick, RotateCcw, Check } from 'lucide-react'
+import { Trash2, MousePointerClick, RotateCcw, Check, ArrowRight } from 'lucide-react'
 
 const MapComponent = memo(function MapComponent({ 
   center, 
@@ -256,7 +256,7 @@ const MapComponent = memo(function MapComponent({
               onClick={onFinishDrawing}
               className="bg-green-600 hover:bg-green-700 text-white px-4 py-3.5 rounded-full font-bold shadow-lg shadow-green-500/50 border border-green-500 text-sm flex items-center gap-2 whitespace-nowrap shrink-0"
             >
-              <Check className="w-4 h-4" /> Finish
+              <ArrowRight className="w-4 h-4" /> Next Step
             </button>
           )}
         </div>

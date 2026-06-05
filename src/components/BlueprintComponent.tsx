@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import * as pdfjsLib from 'pdfjs-dist'
-import { UploadCloud, ZoomIn, ZoomOut, Ruler, Trash2, CheckCircle2, RotateCcw, Check, MousePointerClick } from 'lucide-react'
+import { UploadCloud, ZoomIn, ZoomOut, Ruler, Trash2, CheckCircle2, RotateCcw, Check, MousePointerClick, ArrowRight } from 'lucide-react'
 
 // Initialize pdfjs worker
 if (typeof window !== 'undefined') {
@@ -637,7 +637,7 @@ export default function BlueprintComponent({
                 onClick={onFinishDrawing}
                 className="bg-green-600 hover:bg-green-700 text-white px-4 py-3.5 rounded-full font-bold shadow-lg shadow-green-500/50 border border-green-500 text-sm flex items-center gap-2 whitespace-nowrap shrink-0"
               >
-                <Check className="w-4 h-4" /> Finish
+                <ArrowRight className="w-4 h-4" /> Next Step
               </button>
             )}
           </div>
